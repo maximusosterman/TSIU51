@@ -23,15 +23,21 @@
  </OUTPUT_FILES>
  <LABELS>
   <MAIN><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>16</LINE></MAIN>
-  <TWI_SEND><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>22</LINE></TWI_SEND>
-  <START><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>54</LINE></START>
-  <ADRESS><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>28</LINE></ADRESS>
-  <DATA><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>33</LINE></DATA>
-  <STOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>61</LINE></STOP>
-  <TWI_81><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>39</LINE></TWI_81>
-  <LOOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>41</LINE></LOOP>
-  <SDH><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>79</LINE></SDH>
-  <SDL><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>70</LINE></SDL>
-  <WAIT><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>88</LINE></WAIT>
+  <MAIN_2><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>22</LINE></MAIN_2>
+  <main_loop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>25</LINE></main_loop>
+  <LOAD_DIGIT><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>56</LINE></LOAD_DIGIT>
+  <TWI_SEND><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>35</LINE></TWI_SEND>
+  <delay_1sec><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>133</LINE></delay_1sec>
+  <START><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>90</LINE></START>
+  <TWI_81><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>71</LINE></TWI_81>
+  <STOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>97</LINE></STOP>
+  <DIGIT_LOOKUP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>153</LINE></DIGIT_LOOKUP>
+  <LOOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>73</LINE></LOOP>
+  <SDH><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>115</LINE></SDH>
+  <SDL><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>106</LINE></SDL>
+  <WAIT><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>124</LINE></WAIT>
+  <W8_InreLoop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>127</LINE></W8_InreLoop>
+  <delay_YttreLoop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>139</LINE></delay_YttreLoop>
+  <delay_InreLoop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>141</LINE></delay_InreLoop>
  </LABELS>
 </ASSEMBLER_INFO>

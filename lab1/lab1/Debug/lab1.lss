@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  X:\dev\TSIU51\lab1\lab1\main.asm Wed Jan 29 17:52:27 2025
+AVRASM ver. 2.2.8  X:\dev\TSIU51\lab1\lab1\main.asm Wed Jan 29 19:30:11 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
@@ -890,74 +890,145 @@ AVRASM ver. 2.2.8  X:\dev\TSIU51\lab1\lab1\main.asm Wed Jan 29 17:52:27 2025
 000002 e50f                      	ldi		r16, LOW(RAMEND)
 000003 bf0d                      	out		SPL, r16
                                  
+                                 MAIN_2:
+000004 e030                      	ldi r19, 0
+                                 
+                                 main_loop:
+000005 940e 0019                 	call	LOAD_DIGIT ; (r19=number) -> r17=7seg mönster
+000007 e448                      	ldi	 r20, ADDR_LEFT8*2
+000008 940e 000f                 	call TWI_SEND  ; (r20=address, r17=data)
+00000a 9533                      	inc		r19
+00000b 940e 005b                 	call delay_1sec
+00000d 3130                      	cpi		r19, 16
+00000e f7b1                      	brne	main_loop
+                                 
+                                 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; TWI_SEND(r20=address, r17=data)
                                  TWI_SEND: // ALWAYS SEND r20
-000004 940e 0022                 	call	START
-000006 940e 000c                 	call	ADRESS
-000008 940e 0010                 	call	DATA
-00000a 940e 0029                 	call	STOP
+00000f 940e 0030                 	call	START
+000011 940e 0022                 	call	TWI_81
+000013 2f41                      	mov		r20, r17
+000014 940e 0022                 	call	TWI_81
+000016 940e 0037                 	call	STOP
+000018 9508                      	ret
                                  
-                                 ADRESS:
-00000c e448                      	ldi		r20, ADDR_LEFT8*2
-00000d 940e 0014                 	call	TWI_81
-00000f 9508                      	ret
+                                 /*DATA:
+                                 	ldi		r19, 0
+                                 DATA_LOOP:
+                                 	call	LOAD_DIGIT 
+                                 	mov		r20, r17
+                                 	call	TWI_81
+                                 	inc		r19
+                                 	cpi		r19,15
+                                 	brne	DATA_LOOP
+                                 	ret
+                                 */
                                  
-                                 DATA:
-000010 2f41                      	mov		r20, r17
-000011 940e 0014                 	call	TWI_81
-000013 9508                      	ret
+                                 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; LOAD_DIGIT(r19=number) -> r17=7seg mönster
+                                 LOAD_DIGIT:
+000019 93ff                      	push	ZH
+00001a 93ef                      	push	ZL
                                  
+00001b e0f0                      	ldi		ZH, HIGH(DIGIT_LOOKUP*2)
+00001c ede6                      	ldi		ZL, LOW(DIGIT_LOOKUP*2)
                                  
+00001d 0fe3                      	add		ZL, r19 
+00001e 9114                      	lpm		r17, Z
+                                 
+00001f 91ef                      	pop		ZL
+000020 91ff                      	pop		ZH
+000021 9508                      	ret 
+                                 
+                                 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; TWI_81(r20=byte)
                                  TWI_81:
-000014 e028                      	ldi		r18,8 // loop counter	
+000022 e028                      	ldi		r18,8 // loop counter	
                                  LOOP:
-000015 fd47                      	sbrc	r20, 7
-000016 940e 003d                 	call	SDH
-000018 ff47                      	sbrs	r20, 7
-000019 940e 0033                 	call	SDL
-00001b 0f44                      	lsl		r20
-00001c 952a                      	dec		r18
-00001d 3020                      	cpi		r18, 0
-00001e f7b1                      	brne	LOOP // end of loop
+000023 fd47                      	sbrc	r20, 7
+000024 940e 004b                 	call	SDH
+000026 ff47                      	sbrs	r20, 7
+000027 940e 0041                 	call	SDL
+000029 0f44                      	lsl		r20
+00002a 952a                      	dec		r18
+00002b 3020                      	cpi		r18, 0
+00002c f7b1                      	brne	LOOP // end of loop
                                  
-00001f 940e 003d                 	call	SDH	//ACK 
-000021 9508                      	ret
+00002d 940e 004b                 	call	SDH	//ACK 
+00002f 9508                      	ret
                                  
+                                 	
+                                 
+                                 
+                                 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                  START:
-000022 9aa1                      	sbi		DDRC, SDA
-000023 940e 0047                 	call	WAIT
-000025 9aa0                      	sbi		DDRC, SCL
-000026 940e 0047                 	call	WAIT
-000028 9508                      	ret
+000030 9aa1                      	sbi		DDRC, SDA
+000031 940e 0055                 	call	WAIT
+000033 9aa0                      	sbi		DDRC, SCL
+000034 940e 0055                 	call	WAIT
+000036 9508                      	ret
                                  
                                  STOP:
-000029 9aa1                      	sbi		DDRC, SDA
-00002a 940e 0047                 	call	WAIT
-00002c 98a0                      	cbi		DDRC, SCL
-00002d 940e 0047                 	call	WAIT
-00002f 98a1                      	cbi		DDRC, SDA
-000030 940e 0047                 	call	WAIT
-000032 9508                      	ret
+000037 9aa1                      	sbi		DDRC, SDA
+000038 940e 0055                 	call	WAIT
+00003a 98a0                      	cbi		DDRC, SCL
+00003b 940e 0055                 	call	WAIT
+00003d 98a1                      	cbi		DDRC, SDA
+00003e 940e 0055                 	call	WAIT
+000040 9508                      	ret
                                  
                                  SDL:
-000033 9aa1                      	sbi		DDRC, SDA
-000034 940e 0047                 	call	WAIT
-000036 98a0                      	cbi		DDRC, SCL
-000037 940e 0047                 	call	WAIT
-000039 9aa0                      	sbi		DDRC, SCL
-00003a 940e 0047                 	call	WAIT
-00003c 9508                      	ret
+000041 9aa1                      	sbi		DDRC, SDA
+000042 940e 0055                 	call	WAIT
+000044 98a0                      	cbi		DDRC, SCL
+000045 940e 0055                 	call	WAIT
+000047 9aa0                      	sbi		DDRC, SCL
+000048 940e 0055                 	call	WAIT
+00004a 9508                      	ret
                                  
                                  SDH:
-00003d 98a1                      	cbi		DDRC, SDA
-00003e 940e 0047                 	call	WAIT
-000040 98a0                      	cbi		DDRC, SCL
-000041 940e 0047                 	call	WAIT
-000043 9aa0                      	sbi		DDRC, SCL
-000044 940e 0047                 	call	WAIT
-000046 9508                      	ret
+00004b 98a1                      	cbi		DDRC, SDA
+00004c 940e 0055                 	call	WAIT
+00004e 98a0                      	cbi		DDRC, SCL
+00004f 940e 0055                 	call	WAIT
+000051 9aa0                      	sbi		DDRC, SCL
+000052 940e 0055                 	call	WAIT
+000054 9508                      	ret
                                  
                                  WAIT:
+000055 930f                      	push	r16
+000056 e00a                      	ldi		r16,10 ; Decimal bas
+                                 W8_InreLoop:
+000057 950a                      	dec		r16
+000058 f7f1                      	brne	W8_InreLoop
+000059 910f                      	pop		r16
+00005a 9508                      	ret
                                  
+                                 delay_1sec:
+00005b 930f                      	push	r16
+00005c 931f                      	push	r17
+00005d 932f                      	push	r18
+00005e ef2f                      	ldi		r18, $FF
+00005f e00a                      	ldi		r16,10 ; Decimal bas
+                                 delay_YttreLoop:
+000060 e11f                      	ldi		r17,$1F
+                                 delay_InreLoop:
+000061 951a                      	dec		r17
+000062 f7f1                      	brne	delay_InreLoop
+000063 950a                      	dec		r16
+000064 f7d9                      	brne	delay_YttreLoop
+000065 952a                      	dec		r18
+000066 f7c9                      	brne	delay_YttreLoop
+000067 912f                      	pop		r18
+000068 911f                      	pop		r17
+000069 910f                      	pop		r16
+00006a 9508                      	ret
+                                 
+                                 DIGIT_LOOKUP:
+00006b 063f
+00006c 4f5b
+00006d 6d66
+00006e 077d
+00006f 6f7f
+000070 7c77
+000071 5e39
 
 
 RESOURCE USE INFORMATION
@@ -975,39 +1046,39 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega16A" register use summary:
-x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:   4 r17:   1 r18:   3 r19:   0 r20:   5 
+r13:   0 r14:   0 r15:   0 r16:  12 r17:   6 r18:   7 r19:   4 r20:   5 
 r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   0 r31:   0 
-Registers used: 4 out of 35 (11.4%)
+r29:   0 r30:   4 r31:   3 
+Registers used: 8 out of 35 (22.9%)
 
 "ATmega16A" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   1 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :  20 cbi   :   5 cbr   :   0 
+brne  :   6 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  21 cbi   :   5 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   1 cpse  :   0 dec   :   1 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :   4 lds   :   0 lpm   :   0 lsl   :   1 
+cpi   :   2 cpse  :   0 dec   :   5 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :  11 lds   :   0 lpm   :   2 lsl   :   1 
 lsr   :   0 mov   :   1 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   2 pop   :   0 
-push  :   0 rcall :   0 ret   :   8 reti  :   0 rjmp  :   0 rol   :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   2 pop   :   6 
+push  :   6 rcall :   0 ret   :   9 reti  :   0 rjmp  :   0 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   6 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   1 sbrs  :   1 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 13 out of 113 (11.5%)
+Instructions used: 18 out of 113 (15.9%)
 
 "ATmega16A" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000090    144      0    144   16384   0.9%
+[.cseg] 0x000000 0x0000e6    214     16    230   16384   1.4%
 [.dseg] 0x000060 0x000060      0      0      0    1024   0.0%
 [.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 
