@@ -25,19 +25,24 @@
   <MAIN><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>17</LINE></MAIN>
   <MAIN_2><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>23</LINE></MAIN_2>
   <main_loop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>26</LINE></main_loop>
-  <LOAD_DIGIT><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>57</LINE></LOAD_DIGIT>
-  <TWI_SEND><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>36</LINE></TWI_SEND>
-  <delay_1sec><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>134</LINE></delay_1sec>
-  <START><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>91</LINE></START>
-  <TWI_81><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>72</LINE></TWI_81>
-  <STOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>98</LINE></STOP>
-  <DIGIT_LOOKUP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>154</LINE></DIGIT_LOOKUP>
-  <LOOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>74</LINE></LOOP>
-  <SDH><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>116</LINE></SDH>
-  <SDL><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>107</LINE></SDL>
-  <WAIT><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>125</LINE></WAIT>
-  <W8_InreLoop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>128</LINE></W8_InreLoop>
-  <delay_YttreLoop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>140</LINE></delay_YttreLoop>
-  <delay_InreLoop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>142</LINE></delay_InreLoop>
+  <LOAD_DIGIT><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>88</LINE></LOAD_DIGIT>
+  <TWI_SEND><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>67</LINE></TWI_SEND>
+  <ROTLED_GREEN><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>42</LINE></ROTLED_GREEN>
+  <ROTLED_RED><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>45</LINE></ROTLED_RED>
+  <ROTLED_BOTH><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>48</LINE></ROTLED_BOTH>
+  <ROTLED_OFF><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>51</LINE></ROTLED_OFF>
+  <MAIN_CONT><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>56</LINE></MAIN_CONT>
+  <delay_1sec><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>165</LINE></delay_1sec>
+  <START><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>122</LINE></START>
+  <TWI_81><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>103</LINE></TWI_81>
+  <STOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>129</LINE></STOP>
+  <DIGIT_LOOKUP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>186</LINE></DIGIT_LOOKUP>
+  <LOOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>105</LINE></LOOP>
+  <SDH><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>147</LINE></SDH>
+  <SDL><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>138</LINE></SDL>
+  <WAIT><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>156</LINE></WAIT>
+  <W8_InreLoop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>159</LINE></W8_InreLoop>
+  <delay_YttreLoop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>171</LINE></delay_YttreLoop>
+  <delay_InreLoop><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>173</LINE></delay_InreLoop>
  </LABELS>
 </ASSEMBLER_INFO>

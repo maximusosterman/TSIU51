@@ -24,13 +24,44 @@ MAIN_2:
 	ldi r19, 0
 
 main_loop:
-	call	LOAD_DIGIT ; (r19=number) -> r17=7seg mönster
+	;mov  r17, r19
+	call LOAD_DIGIT ; (r19=number) -> r17=7seg mönster
+	ldi	 r20, ADDR_RIGHT8*2
+	call TWI_SEND  ; (r20=address, r17=data)
+	
+
+	cpi  r19, 0
+	breq ROTLED_GREEN
+	cpi  r19, 1
+	breq ROTLED_RED
+	cpi  r19, 2
+	breq ROTLED_BOTH
+	cpi	 r19, 3
+	breq ROTLED_OFF
+
+ROTLED_GREEN:
+	ldi		r17, 2//	10
+	jmp		MAIN_CONT
+ROTLED_RED:
+	ldi		r17,1//	01
+	jmp		MAIN_CONT
+ROTLED_BOTH:
+	ldi		r17,0// 00
+	jmp		MAIN_CONT
+ROTLED_OFF:
+	ldi		r17,3//	11
+	jmp		MAIN_CONT
+
+
+MAIN_CONT:
 	ldi	 r20, ADDR_LEDS*2
 	call TWI_SEND  ; (r20=address, r17=data)
 	inc		r19
 	call delay_1sec
-	cpi		r19, 16
+	//cpi		r19, 16
+	cpi		r19, 4
 	brne	main_loop
+	rjmp	main_2
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; TWI_SEND(r20=address, r17=data)
 TWI_SEND: // ALWAYS SEND r20
@@ -150,6 +181,7 @@ delay_InreLoop:
 	pop		r17
 	pop		r16
 	ret
+
 
 DIGIT_LOOKUP:
 	.db 0b0111111, 0b0000110, 0b1011011, 0b1001111, 0b1100110, 0b1101101, 0b1111101, 0b0000111, 0b1111111, 0b1101111, 0b1110111, 0b1111100, 0b0111001, 0b1011110, 0b1111001, 0b1110001
