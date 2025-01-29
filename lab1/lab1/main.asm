@@ -9,6 +9,7 @@
 ; Replace with your application code
 	.equ ADDR_LEFT8 = $24
 	.equ ADDR_RIGHT8 = $25
+	.equ ADDR_LEDS = $26 
 
 	.equ SCL = PC0
 	.equ SDA = PC1
@@ -24,7 +25,7 @@ MAIN_2:
 
 main_loop:
 	call	LOAD_DIGIT ; (r19=number) -> r17=7seg mönster
-	ldi	 r20, ADDR_LEFT8*2
+	ldi	 r20, ADDR_LEDS*2
 	call TWI_SEND  ; (r20=address, r17=data)
 	inc		r19
 	call delay_1sec

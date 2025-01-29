@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  X:\dev\TSIU51\lab1\lab1\main.asm Wed Jan 29 19:30:11 2025
+AVRASM ver. 2.2.8  X:\dev\TSIU51\lab1\lab1\main.asm Wed Jan 29 19:37:47 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
@@ -880,6 +880,7 @@ AVRASM ver. 2.2.8  X:\dev\TSIU51\lab1\lab1\main.asm Wed Jan 29 19:30:11 2025
                                  ; Replace with your application code
                                  	.equ ADDR_LEFT8 = $24
                                  	.equ ADDR_RIGHT8 = $25
+                                 	.equ ADDR_LEDS = $26 
                                  
                                  	.equ SCL = PC0
                                  	.equ SDA = PC1
@@ -895,7 +896,7 @@ AVRASM ver. 2.2.8  X:\dev\TSIU51\lab1\lab1\main.asm Wed Jan 29 19:30:11 2025
                                  
                                  main_loop:
 000005 940e 0019                 	call	LOAD_DIGIT ; (r19=number) -> r17=7seg mönster
-000007 e448                      	ldi	 r20, ADDR_LEFT8*2
+000007 e44c                      	ldi	 r20, ADDR_LEDS*2
 000008 940e 000f                 	call TWI_SEND  ; (r20=address, r17=data)
 00000a 9533                      	inc		r19
 00000b 940e 005b                 	call delay_1sec
