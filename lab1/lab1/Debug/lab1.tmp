@@ -1,0 +1,37 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega16A"</DEVICE>
+ <WORKING_DIR>X:\dev\TSIU51\lab1\lab1\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>X:\dev\TSIU51\lab1\lab1\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>X:\dev\TSIU51\lab1\lab1\Debug\lab1.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>lab1.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>lab1.map</FILE>
+  <FILE>lab1.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <MAIN><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>16</LINE></MAIN>
+  <TWI_SEND><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>22</LINE></TWI_SEND>
+  <START><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>54</LINE></START>
+  <ADRESS><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>28</LINE></ADRESS>
+  <DATA><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>33</LINE></DATA>
+  <STOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>61</LINE></STOP>
+  <TWI_81><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>39</LINE></TWI_81>
+  <LOOP><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>41</LINE></LOOP>
+  <SDH><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>79</LINE></SDH>
+  <SDL><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>70</LINE></SDL>
+  <WAIT><FILE>X:\dev\TSIU51\lab1\lab1\main.asm</FILE><LINE>88</LINE></WAIT>
+ </LABELS>
+</ASSEMBLER_INFO>
