@@ -22,19 +22,29 @@
   <FILE>lab2.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <COLD><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>12</LINE></COLD>
-  <MAIN><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>18</LINE></MAIN>
-  <SET_READ_ADDR><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>24</LINE></SET_READ_ADDR>
-  <TWI_SEND><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>30</LINE></TWI_SEND>
-  <START><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>52</LINE></START>
-  <TWI_81><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>95</LINE></TWI_81>
-  <WAIT><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>86</LINE></WAIT>
-  <READ_TWI><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>38</LINE></READ_TWI>
-  <STOP><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>59</LINE></STOP>
-  <LOOP_READ><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>40</LINE></LOOP_READ>
-  <SDH><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>77</LINE></SDH>
-  <SDL><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>68</LINE></SDL>
-  <W8_InreLoop><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>89</LINE></W8_InreLoop>
-  <LOOP><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>97</LINE></LOOP>
+  <COLD><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>14</LINE></COLD>
+  <MAIN><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>20</LINE></MAIN>
+  <SET_READ_ADDR><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>127</LINE></SET_READ_ADDR>
+  <TWI_SEND><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>133</LINE></TWI_SEND>
+  <PRINT_NUMBER><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>45</LINE></PRINT_NUMBER>
+  <SET_SIX><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>27</LINE></SET_SIX>
+  <START><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>156</LINE></START>
+  <TWI_81><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>199</LINE></TWI_81>
+  <STOP><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>163</LINE></STOP>
+  <CONTINUE><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>116</LINE></CONTINUE>
+  <SET_FIVE><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>36</LINE></SET_FIVE>
+  <SET_ZERO><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>62</LINE></SET_ZERO>
+  <SET_ONE><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>71</LINE></SET_ONE>
+  <SET_TWO><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>80</LINE></SET_TWO>
+  <SET_THREE><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>89</LINE></SET_THREE>
+  <SET_FOUR><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>102</LINE></SET_FOUR>
+  <MAIN_CONT><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>120</LINE></MAIN_CONT>
+  <WAIT><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>190</LINE></WAIT>
+  <READ_TWI><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>141</LINE></READ_TWI>
+  <LOOP_READ><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>143</LINE></LOOP_READ>
+  <SDH><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>181</LINE></SDH>
+  <SDL><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>172</LINE></SDL>
+  <W8_InreLoop><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>193</LINE></W8_InreLoop>
+  <LOOP><FILE>X:\dev\TSIU51\lab2\lab2\main.asm</FILE><LINE>201</LINE></LOOP>
  </LABELS>
 </ASSEMBLER_INFO>
