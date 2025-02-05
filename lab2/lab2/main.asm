@@ -19,7 +19,7 @@ MAIN:
 	ldi		r20, ADDR_JOY 
 	call	SET_READ_ADDR	
 	call	TWI_SEND
-
+	rjmp	MAIN
 
 SET_READ_ADDR:
 	lsl		r20
@@ -33,25 +33,21 @@ TWI_SEND: // ALWAYS SEND r20
 	call	WAIT
 	call	READ_TWI
 	call	STOP
-
-	ret
+	ret 
 
 READ_TWI:
-	ldi		r18,8 // loop counter	
-	in		r16, PINC
+	ldi		r18, 8 // loop counter	
 LOOP_READ:
-	
-
-
+	cbi		DDRC, SCL
 	lsl		r20
+	sbic	PINC, SDA
+	ori		r20, 1
 	dec		r18
+	sbi		DDRC, SCL
 	cpi		r18, 0
 	brne	LOOP_READ // end of loop
-
 	call	SDH	//ACK 
 	ret	
-	
-	ret
 
 START:
 	sbi		DDRC, SDA
@@ -95,8 +91,6 @@ W8_InreLoop:
 	brne	W8_InreLoop
 	pop		r16
 	ret
-
-
 
 TWI_81: 
 	ldi		r18,8 // loop counter	
