@@ -1,5 +1,13 @@
-	
-.equ	ADDR_JOY =	$27
+;
+; lab2.asm
+;
+; Created: 2025-02-05 
+; Author : maxve266
+;
+;
+	.equ ADDR_JOY =	$27
+	.equ SCL = PC0
+	.equ SDA = PC1
 
 COLD:
 	ldi		r16, HIGH(RAMEND)
@@ -8,7 +16,42 @@ COLD:
 	out		SPL, r16
 
 MAIN:
-	call 
+	ldi		r20, ADDR_JOY 
+	call	SET_READ_ADDR	
+	call	TWI_SEND
+
+
+SET_READ_ADDR:
+	lsl		r20
+	inc		r20 ; Set read
+	ret 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; TWI_SEND(r20=address, r17=data)
+TWI_SEND: // ALWAYS SEND r20
+	call	START
+	call	TWI_81
+	call	WAIT
+	call	READ_TWI
+	call	STOP
+
+	ret
+
+READ_TWI:
+	ldi		r18,8 // loop counter	
+	in		r16, PINC
+LOOP_READ:
+	
+
+
+	lsl		r20
+	dec		r18
+	cpi		r18, 0
+	brne	LOOP_READ // end of loop
+
+	call	SDH	//ACK 
+	ret	
+	
+	ret
 
 START:
 	sbi		DDRC, SDA
@@ -53,7 +96,9 @@ W8_InreLoop:
 	pop		r16
 	ret
 
-TWI_81:
+
+
+TWI_81: 
 	ldi		r18,8 // loop counter	
 LOOP:
 	sbrc	r20, 7
@@ -67,3 +112,4 @@ LOOP:
 
 	call	SDH	//ACK 
 	ret
+
