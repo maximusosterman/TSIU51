@@ -1,0 +1,7 @@
+
+AVRASM ver. 2.2.8  X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm Tue Feb 18 15:02:26 2025
+
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
+X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(8): Including file 'X:\dev\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
+X:\dev\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm(35): error: Missing newline at end of file
+X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(8): 'X:\dev\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm' included form here

@@ -1,0 +1,35 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega16A"</DEVICE>
+ <WORKING_DIR>X:\dev\TSIU51\pong_game_projekt\pong\pong\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc</FILE>
+  <FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\Debug\pong.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>pong.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>pong.map</FILE>
+  <FILE>pong.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <SPI_MASTER_INIT><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>8</LINE></SPI_MASTER_INIT>
+  <POSX_BALL><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>18</LINE></POSX_BALL>
+  <POSY_BALL><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>19</LINE></POSY_BALL>
+  <P1_POSY><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>20</LINE></P1_POSY>
+  <P2_POSY><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>21</LINE></P2_POSY>
+  <LINE><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>22</LINE></LINE>
+  <VMEM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>23</LINE></VMEM>
+  <COLD><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>28</LINE></COLD>
+ </LABELS>
+</ASSEMBLER_INFO>

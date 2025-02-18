@@ -18,8 +18,8 @@ COLD:
 	out		SPL, r16
 
 MAIN:
-	ldi		r20, ADDR_JOY 
-	call	SET_READ_ADDR	
+	ldi		r20, ADDR_JOY*2+1 
+	;call	SET_READ_ADDR	
 	call	TWI_SEND
 	call	PRINT_NUMBER	
 	rjmp	MAIN
