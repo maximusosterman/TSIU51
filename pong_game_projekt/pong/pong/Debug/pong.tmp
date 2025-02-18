@@ -10,6 +10,7 @@
  <SOURCE_FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc</FILE>
+  <FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm</FILE>
   <FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
@@ -23,13 +24,19 @@
   <FILE>pong.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <SPI_MASTER_INIT><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>8</LINE></SPI_MASTER_INIT>
-  <POSX_BALL><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>18</LINE></POSX_BALL>
-  <POSY_BALL><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>19</LINE></POSY_BALL>
-  <P1_POSY><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>20</LINE></P1_POSY>
-  <P2_POSY><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>21</LINE></P2_POSY>
-  <LINE><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>22</LINE></LINE>
-  <VMEM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>23</LINE></VMEM>
-  <COLD><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>28</LINE></COLD>
+  <SPI_MASTER_INIT><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>15</LINE></SPI_MASTER_INIT>
+  <RUN><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>59</LINE></RUN>
+  <SPI_MasterTransmit><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>25</LINE></SPI_MasterTransmit>
+  <Wait_Transmit><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>29</LINE></Wait_Transmit>
+  <SPI_SlaveInit><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>35</LINE></SPI_SlaveInit>
+  <SPI_SlaveReceive><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>44</LINE></SPI_SlaveReceive>
+  <LATCH><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>52</LINE></LATCH>
+  <POSX_BALL><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>19</LINE></POSX_BALL>
+  <POSY_BALL><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>20</LINE></POSY_BALL>
+  <P1_POSY><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>21</LINE></P1_POSY>
+  <P2_POSY><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>22</LINE></P2_POSY>
+  <LINE><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>23</LINE></LINE>
+  <VMEM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>24</LINE></VMEM>
+  <COLD><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>29</LINE></COLD>
  </LABELS>
 </ASSEMBLER_INFO>
