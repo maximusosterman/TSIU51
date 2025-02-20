@@ -7,25 +7,17 @@
 
 .INCLUDE "port_definitions.asm"
 .INCLUDE "DAmatrix.asm"
+.INCLUDE "video_mem.asm"
 
-.equ VMEM_SZ = 5    ; #rows on display
-.equ GAME_SPEED  = 150 ; inter-run delay (millisecs)
-
+ 
+ .dseg
+	.org SRAM_START
+	VMEM: .byte 64
+.cseg
 
 ; ---------------------------------------
 ; --- Memory layout in SRAM
-.dseg
-	.org SRAM_START
-	POSX_BALL: .byte 1 
-	POSY_BALL: .byte 1
-	P1_POSY: .byte 1 
-	P2_POSY: .byte 1
-	LINE: .byte 1 ; Current line    
-	VMEM: .byte VMEM_SZ ; Video MEMory
-.cseg
-
-	jmp COLD 
-
+ 
 COLD:
 ; ***         sätt stackpekaren
 	ldi    r16, HIGH(RAMEND)
@@ -33,4 +25,8 @@ COLD:
 	ldi    r16, LOW(RAMEND)
 	out    spl, r16
 
-	// call HW_INIT
+START:
+	call	ERASE_VMEM
+	call	SPI_MASTER_INIT
+	//call WAIT_FOR_START:
+	

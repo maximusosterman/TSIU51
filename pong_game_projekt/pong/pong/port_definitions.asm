@@ -9,8 +9,7 @@
 	.equ MISO = PB6
 	.equ DDR_SPI = DDRB
 
-
-
+	jmp COLD
 
 
 

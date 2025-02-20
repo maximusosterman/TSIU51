@@ -12,6 +12,13 @@
 ;       SPI
 ;::::::::::::::::
 
+.dseg
+
+	LINE: .byte 1 ; Current line  
+	
+.cseg
+
+
 SPI_MASTER_INIT:
 ; Set MOSI and SCK output, all others input
         ldi     r17, (1<<MATRIX_LATCH)|(1<<MOSI)|(1<<SCK)
@@ -19,7 +26,7 @@ SPI_MASTER_INIT:
 ; Enable SPI, Master, set clock rate fck/4
         ldi     r17, (1<<SPE)|(1<<MSTR)|(1<<SPR0)
         out     SPCR, r17
-		call	RUN
+		call	RENDER_TO_DAM
         ret
 		
 SPI_MasterTransmit:
@@ -56,8 +63,12 @@ LATCH:
 	ret
 
 
-RUN: 
+
+
+RENDER_TO_DAM:  //Ska läsa från VMEM
 	//höger display 
+
+
 	ldi		r16,$00
 	call	SPI_MasterTransmit
 	ldi		r16,$00
@@ -78,6 +89,11 @@ RUN:
 	call	SPI_MasterTransmit
 	
 	call	LATCH
+
+
+
+
+
 
 
 #endif /* _DAMATRIX_ */
