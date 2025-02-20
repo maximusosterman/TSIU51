@@ -4,7 +4,7 @@
 
 
 
-TEST_TABLE: .db $00, $00, $00, $7F, $80, $80, $80, $7F
+TEST_TABLE: .db $01 , $01, $01, $C7, $80, $80, $80, $C7
 
 ERASE_VMEM: 
 	push	ZH

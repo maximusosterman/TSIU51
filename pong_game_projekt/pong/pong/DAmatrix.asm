@@ -70,11 +70,22 @@ RENDER_TO_DAM:  //Ska läsa från VMEM
 	push	ZH
 	push	ZL
 	push	r16
+	push	r17
 
 	ldi		ZH,HIGH(VMEM)
 	ldi		ZL,LOW(VMEM) 
-	 
-	
+	ldi		r17, 8 //loop counter
+
+RENDER_LOOP:
+	ld		r16,Z+
+	call	SPI_MasterTransmit
+	dec		r17
+	brne	RENDER_LOOP
+
+
+
+
+/*	
 	//höger display 
 	ld		r16,Z+
 	call	SPI_MasterTransmit
@@ -94,9 +105,10 @@ RENDER_TO_DAM:  //Ska läsa från VMEM
 	call	SPI_MasterTransmit
 	ld		r16, Z+
 	call	SPI_MasterTransmit
-	
+*/
 	call	LATCH
 
+	pop	r17
 	pop	r16
 	pop		ZL
 	pop		ZH

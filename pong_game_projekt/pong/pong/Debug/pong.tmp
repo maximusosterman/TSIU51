@@ -34,6 +34,7 @@
   <SPI_SlaveReceive><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>51</LINE></SPI_SlaveReceive>
   <LATCH><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>59</LINE></LATCH>
   <VMEM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>15</LINE></VMEM>
+  <RENDER_LOOP><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>79</LINE></RENDER_LOOP>
   <TEST_TABLE><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>7</LINE></TEST_TABLE>
   <ERASE_VMEM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>9</LINE></ERASE_VMEM>
   <LOOP_ERASE><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>21</LINE></LOOP_ERASE>
