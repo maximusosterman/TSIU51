@@ -27,6 +27,7 @@ COLD:
 
 START:
 	call	ERASE_VMEM
+	call	SET_VM
 	call	SPI_MASTER_INIT
 	//call WAIT_FOR_START:
 	

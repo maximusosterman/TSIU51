@@ -4,7 +4,7 @@
 
 
 
-
+TEST_TABLE: .db $00, $00, $00, $7F, $80, $80, $80, $7F
 
 ERASE_VMEM: 
 	push	ZH
@@ -27,6 +27,35 @@ LOOP_ERASE:
 	pop		ZL
 	pop		ZH
 	ret
+
+SET_VM:
+	push ZL
+	push ZH
+	push YH
+	push YL
+	push r17
+
+	ldi ZL, LOW(TEST_TABLE*2)  ; Load lower byte of TEST_TABLE address
+    ldi ZH, HIGH(TEST_TABLE*2)  ; Load higher byte of TEST_TABLE address
+
+    ldi YL, LOW(VMEM)        ; Load lower byte of VMEM address
+    ldi YH, HIGH(VMEM)        ; Load higher byte of VMEM address
+
+    ldi r16, 8               ; Set loop counter (number of bytes to copy)
+
+copy_loop:
+    lpm r17, Z+               ; Load byte from TEST_TABLE (Z points to next byte after)
+    st Y+, r17               ; Store byte into VMEM (Y points to next byte after)
+    dec r16                  ; Decrement loop counter
+    brne copy_loop           ; Repeat until all bytes copied
+
+	pop r17
+	pop YL
+	pop YH
+	pop ZH
+	pop ZL
+	ret
+	
 
 
 #endif /*__video_MEM.asm__*/

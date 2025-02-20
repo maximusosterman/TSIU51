@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm Thu Feb 20 10:58:37 2025
+AVRASM ver. 2.2.8  X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm Thu Feb 20 11:49:21 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
 X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(8): Including file 'X:\dev\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
@@ -894,7 +894,7 @@ X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\T
                                  	.equ MISO = PB6
                                  	.equ DDR_SPI = DDRB
                                  
-000000 940c 0043                 	jmp COLD
+000000 940c 0063                 	jmp COLD
                                  
                                  
                                  
@@ -917,7 +917,7 @@ X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\T
                                  
                                  .dseg
                                  
-000060                           	LINE: .byte 1 ; Current line  
+                                 
                                  	
                                  .cseg
                                  
@@ -969,29 +969,40 @@ X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\T
                                  
                                  
                                  RENDER_TO_DAM:  //Ska läsa från VMEM
+                                 
+000019 93ff                      	push	ZH
+00001a 93ef                      	push	ZL
+00001b 930f                      	push	r16
+                                 
+00001c e0f0                      	ldi		ZH,HIGH(VMEM)
+00001d e6e0                      	ldi		ZL,LOW(VMEM) 
+                                 	 
+                                 	
                                  	//höger display 
-                                 
-                                 
-000019 e000                      	ldi		r16,$00
-00001a 940e 0009                 	call	SPI_MasterTransmit
-00001c e000                      	ldi		r16,$00
-00001d 940e 0009                 	call	SPI_MasterTransmit
-00001f e000                      	ldi		r16,$00
-000020 940e 0009                 	call	SPI_MasterTransmit
-000022 e70f                      	ldi		r16, $7F
-000023 940e 0009                 	call	SPI_MasterTransmit
+00001e 9101                      	ld		r16,Z+
+00001f 940e 0009                 	call	SPI_MasterTransmit
+000021 9101                      	ld		r16, Z+
+000022 940e 0009                 	call	SPI_MasterTransmit
+000024 9101                      	ld		r16, Z+
+000025 940e 0009                 	call	SPI_MasterTransmit
+000027 9101                      	ld		r16, Z+
+000028 940e 0009                 	call	SPI_MasterTransmit
                                  
                                  	//Vänster display
-000025 e800                      	ldi		r16,$80	//blå 
-000026 940e 0009                 	call	SPI_MasterTransmit
-000028 e800                      	ldi		r16,$80 // grön 
-000029 940e 0009                 	call	SPI_MasterTransmit
-00002b e800                      	ldi		r16,$80	// röd
-00002c 940e 0009                 	call	SPI_MasterTransmit
-00002e e70f                      	ldi		r16, $7F
-00002f 940e 0009                 	call	SPI_MasterTransmit
+00002a 9101                      	ld		r16, Z+	//blå 
+00002b 940e 0009                 	call	SPI_MasterTransmit
+00002d 9101                      	ld		r16, Z+ // grön 
+00002e 940e 0009                 	call	SPI_MasterTransmit
+000030 9101                      	ld		r16, Z+	// röd
+000031 940e 0009                 	call	SPI_MasterTransmit
+000033 9101                      	ld		r16, Z+
+000034 940e 0009                 	call	SPI_MasterTransmit
                                  	
-000031 940e 0016                 	call	LATCH
+000036 940e 0016                 	call	LATCH
+                                 
+000038 910f                      	pop	r16
+000039 91ef                      	pop		ZL
+00003a 91ff                      	pop		ZH
                                  
                                  
                                  
@@ -1008,29 +1019,61 @@ X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\T
                                  
                                  
                                  
-                                 
+00003b 0000
+00003c 7f00
+00003d 8080
+00003e 7f80                      TEST_TABLE: .db $00, $00, $00, $7F, $80, $80, $80, $7F
                                  
                                  ERASE_VMEM: 
-000033 93ff                      	push	ZH
-000034 93ef                      	push	ZL
-000035 931f                      	push	r17 
-000036 930f                      	push	r16
+00003f 93ff                      	push	ZH
+000040 93ef                      	push	ZL
+000041 931f                      	push	r17 
+000042 930f                      	push	r16
                                  
-000037 e0f0                      	ldi    ZH,HIGH(VMEM)
-000038 e6e0                      	ldi    ZL,LOW(VMEM)
+000043 e0f0                      	ldi    ZH,HIGH(VMEM)
+000044 e6e0                      	ldi    ZL,LOW(VMEM)
                                  	
-000039 e411                      	ldi		r17, 65
-00003a 2700                      	clr		r16 
+000045 e411                      	ldi		r17, 65
+000046 2700                      	clr		r16 
                                  
                                  LOOP_ERASE:
-00003b 9301                      	st		Z+, r16 
-00003c 951a                      	dec		r17
-00003d f7e9                      	brne	LOOP_ERASE
-00003e 910f                      	pop		r16
-00003f 911f                      	pop		r17
-000040 91ef                      	pop		ZL
-000041 91ff                      	pop		ZH
-000042 9508                      	ret
+000047 9301                      	st		Z+, r16 
+000048 951a                      	dec		r17
+000049 f7e9                      	brne	LOOP_ERASE
+00004a 910f                      	pop		r16
+00004b 911f                      	pop		r17
+00004c 91ef                      	pop		ZL
+00004d 91ff                      	pop		ZH
+00004e 9508                      	ret
+                                 
+                                 SET_VM:
+00004f 93ef                      	push ZL
+000050 93ff                      	push ZH
+000051 93df                      	push YH
+000052 93cf                      	push YL
+000053 931f                      	push r17
+                                 
+000054 e7e6                      	ldi ZL, LOW(TEST_TABLE*2)  ; Load lower byte of TEST_TABLE address
+000055 e0f0                          ldi ZH, HIGH(TEST_TABLE*2)  ; Load higher byte of TEST_TABLE address
+                                 
+000056 e6c0                          ldi YL, LOW(VMEM)        ; Load lower byte of VMEM address
+000057 e0d0                          ldi YH, HIGH(VMEM)        ; Load higher byte of VMEM address
+                                 
+000058 e008                          ldi r16, 8               ; Set loop counter (number of bytes to copy)
+                                 
+                                 copy_loop:
+000059 9115                          lpm r17, Z+               ; Load byte from TEST_TABLE (Z points to next byte after)
+00005a 9319                          st Y+, r17               ; Store byte into VMEM (Y points to next byte after)
+00005b 950a                          dec r16                  ; Decrement loop counter
+00005c f7e1                          brne copy_loop           ; Repeat until all bytes copied
+                                 
+00005d 911f                      	pop r17
+00005e 91cf                      	pop YL
+00005f 91df                      	pop YH
+000060 91ff                      	pop ZH
+000061 91ef                      	pop ZL
+000062 9508                      	ret
+                                 	
                                  
                                  
                                  #endif /*__video_MEM.asm__*/
@@ -1046,14 +1089,15 @@ X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\T
                                   
                                  COLD:
                                  ; ***         sätt stackpekaren
-000043 e004                      	ldi    r16, HIGH(RAMEND)
-000044 bf0e                      	out    sph, r16
-000045 e50f                      	ldi    r16, LOW(RAMEND)
-000046 bf0d                      	out    spl, r16
+000063 e004                      	ldi    r16, HIGH(RAMEND)
+000064 bf0e                      	out    sph, r16
+000065 e50f                      	ldi    r16, LOW(RAMEND)
+000066 bf0d                      	out    spl, r16
                                  
                                  START:
-000047 940e 0033                 	call	ERASE_VMEM
-000049 940e 0002                 	call	SPI_MASTER_INIT
+000067 940e 003f                 	call	ERASE_VMEM
+000069 940e 004f                 	call	SET_VM
+00006b 940e 0002                 	call	SPI_MASTER_INIT
                                  	//call WAIT_FOR_START:
                                  	
 
@@ -1073,40 +1117,40 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega16A" register use summary:
-x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   0 y  :   1 z  :  10 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  18 r17:  12 r18:   0 r19:   0 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   3 r31:   3 
-Registers used: 5 out of 35 (14.3%)
+r13:   0 r14:   0 r15:   0 r16:  22 r17:  16 r18:   0 r19:   0 r20:   0 
+r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   3 
+r29:   3 r30:   9 r31:   9 
+Registers used: 8 out of 35 (22.9%)
 
 "ATmega16A" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :  12 cbi   :   1 cbr   :   0 
+brne  :   2 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  13 cbi   :   1 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   1 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   1 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   0 cpse  :   0 dec   :   2 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   0 jmp   :   1 
-ld    :   0 ldd   :   0 ldi   :  17 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   8 ldd   :   0 ldi   :  16 lds   :   0 lpm   :   1 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   7 pop   :   4 
-push  :   4 rcall :   0 ret   :   6 reti  :   0 rjmp  :   2 rol   :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   7 pop   :  12 
+push  :  12 rcall :   0 ret   :   7 reti  :   0 rjmp  :   2 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   1 sbic  :   0 sbis  :   2 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   1 std   :   0 sts   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   2 std   :   0 sts   :   0 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 16 out of 113 (14.2%)
+Instructions used: 18 out of 113 (15.9%)
 
 "ATmega16A" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000096    150      0    150   16384   0.9%
-[.dseg] 0x000060 0x0000a0      0     65     65    1024   6.3%
+[.cseg] 0x000000 0x0000da    210      8    218   16384   1.3%
+[.dseg] 0x000060 0x0000a0      0     64     64    1024   6.3%
 [.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 
 Assembly complete, 0 errors, 0 warnings

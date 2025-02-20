@@ -26,7 +26,6 @@
  </OUTPUT_FILES>
  <LABELS>
   <COLD><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>21</LINE></COLD>
-  <LINE><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>17</LINE></LINE>
   <SPI_MASTER_INIT><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>22</LINE></SPI_MASTER_INIT>
   <RENDER_TO_DAM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>68</LINE></RENDER_TO_DAM>
   <SPI_MasterTransmit><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>32</LINE></SPI_MasterTransmit>
@@ -34,9 +33,12 @@
   <SPI_SlaveInit><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>42</LINE></SPI_SlaveInit>
   <SPI_SlaveReceive><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>51</LINE></SPI_SlaveReceive>
   <LATCH><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>59</LINE></LATCH>
-  <ERASE_VMEM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>9</LINE></ERASE_VMEM>
   <VMEM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>15</LINE></VMEM>
+  <TEST_TABLE><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>7</LINE></TEST_TABLE>
+  <ERASE_VMEM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>9</LINE></ERASE_VMEM>
   <LOOP_ERASE><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>21</LINE></LOOP_ERASE>
+  <SET_VM><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>31</LINE></SET_VM>
+  <copy_loop><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>46</LINE></copy_loop>
   <START><FILE>X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>28</LINE></START>
  </LABELS>
 </ASSEMBLER_INFO>

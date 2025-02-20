@@ -14,7 +14,7 @@
 
 .dseg
 
-	LINE: .byte 1 ; Current line  
+
 	
 .cseg
 
@@ -66,29 +66,40 @@ LATCH:
 
 
 RENDER_TO_DAM:  //Ska läsa från VMEM
+
+	push	ZH
+	push	ZL
+	push	r16
+
+	ldi		ZH,HIGH(VMEM)
+	ldi		ZL,LOW(VMEM) 
+	 
+	
 	//höger display 
-
-
-	ldi		r16,$00
+	ld		r16,Z+
 	call	SPI_MasterTransmit
-	ldi		r16,$00
+	ld		r16, Z+
 	call	SPI_MasterTransmit
-	ldi		r16,$00
+	ld		r16, Z+
 	call	SPI_MasterTransmit
-	ldi		r16, $7F
+	ld		r16, Z+
 	call	SPI_MasterTransmit
 
 	//Vänster display
-	ldi		r16,$80	//blå 
+	ld		r16, Z+	//blå 
 	call	SPI_MasterTransmit
-	ldi		r16,$80 // grön 
+	ld		r16, Z+ // grön 
 	call	SPI_MasterTransmit
-	ldi		r16,$80	// röd
+	ld		r16, Z+	// röd
 	call	SPI_MasterTransmit
-	ldi		r16, $7F
+	ld		r16, Z+
 	call	SPI_MasterTransmit
 	
 	call	LATCH
+
+	pop	r16
+	pop		ZL
+	pop		ZH
 
 
 
