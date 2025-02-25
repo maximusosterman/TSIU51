@@ -21,6 +21,7 @@
 
 SPI_MASTER_INIT:
 ; Set MOSI and SCK output, all others input
+		clr		r17 
         ldi     r17, (1<<MATRIX_LATCH)|(1<<MOSI)|(1<<SCK)
         out     DDRB, r17
 ; Enable SPI, Master, set clock rate fck/4
@@ -61,8 +62,6 @@ LATCH:
 	cbi		PORTB, MATRIX_LATCH
 
 	ret
-
-
 
 
 RENDER_TO_DAM:  //Ska läsa från VMEM

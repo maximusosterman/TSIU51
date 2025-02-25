@@ -29,5 +29,6 @@ START:
 	call	ERASE_VMEM
 	call	SET_VM
 	call	SPI_MASTER_INIT
+	jmp		START
 	//call WAIT_FOR_START:
 	

@@ -1,6 +1,8 @@
 #ifndef _DISPLAY_
 #define _DISPLAY_
 
+POS_Y_ADRESS:	.db	$FF, $7F, $BF, $DF, $EF, $F7, $FB, $FD, $FE 
+
 SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
 	push	r18
 	call	DISPLAY_IX
@@ -20,13 +22,17 @@ SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
 	or		r18, r16
 	std		Z+2, r18
 
+	//Anode
+	ldd		r18, Z+3
+	or		r18, r16
+	std		Z+3, r18
+
 	pop		r18
+
 	ret
 
 DISPLAY_IX: // r16 = PIXEL_POS
 
-	push ZH
-	push ZL
 	push r1
 	
 	clr		r1
@@ -40,9 +46,9 @@ DISPLAY_IX: // r16 = PIXEL_POS
 	add		ZL, r16
 	adc		ZH, r1
 
-	andi r17, 7
+	andi	r17, 0b00000111
 
-	ldi r16, 0x01
+	ldi		r16, 0x01
 
 LOOP:
 	cpi		r17, 0
@@ -53,8 +59,6 @@ LOOP:
 
 END_LOOP:
 	pop r1
-	pop ZL
-	pop ZH
 	ret
 
 #endif /* _DISPLAY_ */
