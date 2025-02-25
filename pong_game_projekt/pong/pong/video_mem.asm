@@ -1,10 +1,9 @@
 #ifndef _VIDEO_MEM_
 #define _VIDEO_MEM_
+ 
 
 
-
-
-TEST_TABLE: .db $01 , $01, $01, $C7, $80, $80, $80, $C7
+TEST_TABLE: .db $01 , $01, $01, $C7, $80, $80, $80, $C3	//starting pos
 
 ERASE_VMEM: 
 	push	ZH
@@ -28,6 +27,12 @@ LOOP_ERASE:
 	pop		ZH
 	ret
 
+SET_VM:
+	ldi	r16, $00
+	call SET_WHITE_PIX
+	ret
+
+/*
 SET_VM:
 	push ZL
 	push ZH
@@ -57,5 +62,5 @@ copy_loop:
 	ret
 	
 
-
+*/
 #endif /*__video_MEM.asm__*/

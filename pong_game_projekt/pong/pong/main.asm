@@ -8,7 +8,7 @@
 .INCLUDE "port_definitions.asm"
 .INCLUDE "DAmatrix.asm"
 .INCLUDE "video_mem.asm"
-
+.INCLUDE "display.asm"
  
  .dseg
 	.org SRAM_START

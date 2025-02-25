@@ -1,14 +1,16 @@
 
-AVRASM ver. 2.2.8  X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm Thu Feb 20 12:11:07 2025
+AVRASM ver. 2.2.8  X:\TSIU51\pong_game_projekt\pong\pong\main.asm Tue Feb 25 18:01:02 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
-X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(8): Including file 'X:\dev\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
-X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(9): Including file 'X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm'
-X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(8): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(9): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\video_mem.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\display.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
-X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(8): Including file 'X:\dev\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
-X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(9): Including file 'X:\dev\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm'
-X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\TSIU51\pong_game_projekt\pong\pong\video_mem.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(8): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(9): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\video_mem.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\display.asm'
                                  
                                  ;
                                  
@@ -894,7 +896,7 @@ X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\T
                                  	.equ MISO = PB6
                                  	.equ DDR_SPI = DDRB
                                  
-000000 940c 0053                 	jmp COLD
+000000 940c 0067                 	jmp COLD
                                  
                                  
                                  
@@ -1027,14 +1029,13 @@ X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\T
                                  .INCLUDE "video_mem.asm"
                                  
                                  #define _VIDEO_MEM_
-                                 
-                                 
+                                  
                                  
                                  
 00002b 0101
 00002c c701
 00002d 8080
-00002e c780                      TEST_TABLE: .db $01 , $01, $01, $C7, $80, $80, $80, $C7
+00002e c380                      TEST_TABLE: .db $01 , $01, $01, $C7, $80, $80, $80, $C3	//starting pos
                                  
                                  ERASE_VMEM: 
 00002f 93ff                      	push	ZH
@@ -1059,37 +1060,103 @@ X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\T
 00003e 9508                      	ret
                                  
                                  SET_VM:
-00003f 93ef                      	push ZL
-000040 93ff                      	push ZH
-000041 93df                      	push YH
-000042 93cf                      	push YL
-000043 931f                      	push r17
+00003f e000                      	ldi	r16, $00
+000040 940e 0043                 	call SET_WHITE_PIX
+000042 9508                      	ret
                                  
-000044 e5e6                      	ldi ZL, LOW(TEST_TABLE*2)  ; Load lower byte of TEST_TABLE address
-000045 e0f0                          ldi ZH, HIGH(TEST_TABLE*2)  ; Load higher byte of TEST_TABLE address
+                                 /*
+                                 SET_VM:
+                                 	push ZL
+                                 	push ZH
+                                 	push YH
+                                 	push YL
+                                 	push r17
                                  
-000046 e6c0                          ldi YL, LOW(VMEM)        ; Load lower byte of VMEM address
-000047 e0d0                          ldi YH, HIGH(VMEM)        ; Load higher byte of VMEM address
+                                 	ldi ZL, LOW(TEST_TABLE*2)  ; Load lower byte of TEST_TABLE address
+                                     ldi ZH, HIGH(TEST_TABLE*2)  ; Load higher byte of TEST_TABLE address
                                  
-000048 e008                          ldi r16, 8               ; Set loop counter (number of bytes to copy)
+                                     ldi YL, LOW(VMEM)        ; Load lower byte of VMEM address
+                                     ldi YH, HIGH(VMEM)        ; Load higher byte of VMEM address
+                                 
+                                     ldi r16, 8               ; Set loop counter (number of bytes to copy)
                                  
                                  copy_loop:
-000049 9115                          lpm r17, Z+               ; Load byte from TEST_TABLE (Z points to next byte after)
-00004a 9319                          st Y+, r17               ; Store byte into VMEM (Y points to next byte after)
-00004b 950a                          dec r16                  ; Decrement loop counter
-00004c f7e1                          brne copy_loop           ; Repeat until all bytes copied
+                                     lpm r17, Z+               ; Load byte from TEST_TABLE (Z points to next byte after)
+                                     st Y+, r17               ; Store byte into VMEM (Y points to next byte after)
+                                     dec r16                  ; Decrement loop counter
+                                     brne copy_loop           ; Repeat until all bytes copied
                                  
-00004d 911f                      	pop r17
-00004e 91cf                      	pop YL
-00004f 91df                      	pop YH
-000050 91ff                      	pop ZH
-000051 91ef                      	pop ZL
-000052 9508                      	ret
+                                 	pop r17
+                                 	pop YL
+                                 	pop YH
+                                 	pop ZH
+                                 	pop ZL
+                                 	ret
                                  	
                                  
-                                 
+                                 */
                                  #endif /*__video_MEM.asm__*/
+                                 .INCLUDE "display.asm"
                                  
+                                 #define _DISPLAY_
+                                 
+                                 SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
+000043 932f                      	push	r18
+000044 940e 0051                 	call	DISPLAY_IX
+                                 
+                                 	//blue
+000046 8120                      	ldd		r18, Z+0
+000047 2b20                      	or		r18, r16
+000048 8320                      	std		Z+0, r18
+                                 
+                                 	//green
+000049 8121                      	ldd		r18, Z+1
+00004a 2b20                      	or		r18, r16
+00004b 8321                      	std		Z+1, r18
+                                 
+                                 	//red
+00004c 8122                      	ldd		r18, Z+2
+00004d 2b20                      	or		r18, r16
+00004e 8322                      	std		Z+2, r18
+                                 
+00004f 912f                      	pop		r18
+000050 9508                      	ret
+                                 
+                                 DISPLAY_IX: // r16 = PIXEL_POS
+                                 
+000051 93ff                      	push ZH
+000052 93ef                      	push ZL
+000053 921f                      	push r1
+                                 	
+000054 2411                      	clr		r1
+000055 e0f0                      	ldi		ZH, HIGH(VMEM)
+000056 e6e0                      	ldi		ZL, LOW(VMEM)
+                                 
+000057 2f10                      	mov		r17, r16
+000058 7f08                      	andi	r16, 0b11111000 
+000059 9506                      	lsr		r16
+                                 	
+00005a 0fe0                      	add		ZL, r16
+00005b 1df1                      	adc		ZH, r1
+                                 
+00005c 7017                      	andi r17, 7
+                                 
+00005d e001                      	ldi r16, 0x01
+                                 
+                                 LOOP:
+00005e 3010                      	cpi		r17, 0
+00005f f019                      	breq	END_LOOP
+000060 0f00                      	lsl		r16
+000061 951a                      	dec		r17
+000062 cffb                      	rjmp	LOOP
+                                 
+                                 END_LOOP:
+000063 901f                      	pop r1
+000064 91ef                      	pop ZL
+000065 91ff                      	pop ZH
+000066 9508                      	ret
+                                 
+                                 #endif /* _DISPLAY_ */
                                   
                                   .dseg
                                  	.org SRAM_START
@@ -1101,15 +1168,15 @@ X:\dev\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\dev\T
                                   
                                  COLD:
                                  ; ***         sätt stackpekaren
-000053 e004                      	ldi    r16, HIGH(RAMEND)
-000054 bf0e                      	out    sph, r16
-000055 e50f                      	ldi    r16, LOW(RAMEND)
-000056 bf0d                      	out    spl, r16
+000067 e004                      	ldi    r16, HIGH(RAMEND)
+000068 bf0e                      	out    sph, r16
+000069 e50f                      	ldi    r16, LOW(RAMEND)
+00006a bf0d                      	out    spl, r16
                                  
                                  START:
-000057 940e 002f                 	call	ERASE_VMEM
-000059 940e 003f                 	call	SET_VM
-00005b 940e 0002                 	call	SPI_MASTER_INIT
+00006b 940e 002f                 	call	ERASE_VMEM
+00006d 940e 003f                 	call	SET_VM
+00006f 940e 0002                 	call	SPI_MASTER_INIT
                                  	//call WAIT_FOR_START:
                                  	
 
@@ -1129,39 +1196,39 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega16A" register use summary:
-x  :   0 y  :   1 z  :   3 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   0 y  :   0 z  :   8 r0 :   0 r1 :   4 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  15 r17:  20 r18:   0 r19:   0 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   3 
-r29:   3 r30:   9 r31:   9 
-Registers used: 8 out of 35 (22.9%)
+r13:   0 r14:   0 r15:   0 r16:  23 r17:  20 r18:  11 r19:   0 r20:   0 
+r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:  10 r31:  10 
+Registers used: 7 out of 35 (20.0%)
 
 "ATmega16A" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
-andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
+.lds  :   0 .sts  :   0 adc   :   1 add   :   1 adiw  :   0 and   :   0 
+andi  :   2 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   6 cbi   :   1 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   1 cls   :   0 
+brne  :   2 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   8 cbi   :   1 cbr   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   2 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   1 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   0 jmp   :   1 
-ld    :   1 ldd   :   0 ldi   :  17 lds   :   0 lpm   :   1 lsl   :   0 
-lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   7 pop   :  13 
-push  :  13 rcall :   0 ret   :   7 reti  :   0 rjmp  :   2 rol   :   0 
+ld    :   1 ldd   :   3 ldi   :  16 lds   :   0 lpm   :   0 lsl   :   1 
+lsr   :   1 mov   :   1 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
+neg   :   0 nop   :   0 or    :   3 ori   :   0 out   :   7 pop   :  12 
+push  :  12 rcall :   0 ret   :   9 reti  :   0 rjmp  :   3 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   1 sbic  :   0 sbis  :   2 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   2 std   :   0 sts   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   1 std   :   3 sts   :   0 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 18 out of 113 (15.9%)
+Instructions used: 28 out of 113 (24.8%)
 
 "ATmega16A" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000ba    178      8    186   16384   1.1%
+[.cseg] 0x000000 0x0000e2    218      8    226   16384   1.4%
 [.dseg] 0x000060 0x0000a0      0     64     64    1024   6.3%
 [.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 
