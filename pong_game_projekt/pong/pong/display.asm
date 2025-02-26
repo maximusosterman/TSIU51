@@ -3,7 +3,11 @@
 
 POS_Y_ADRESS: .db $FE, $FD, $FB, $F7, $EF, $DF, $BF, $7F
 
-SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
+SET_WHITE_PIX: // r16 = POS (     X     |     Y      )
+
+	// REVERSE r16 to POS (	  Y		|	  X		 )
+	call REVERSE_REGISTER // r16
+
 	push	ZH
 	push	ZL
 	push	r18

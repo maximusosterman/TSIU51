@@ -1,16 +1,18 @@
 
-AVRASM ver. 2.2.8  X:\TSIU51\pong_game_projekt\pong\pong\main.asm Wed Feb 26 18:10:16 2025
+AVRASM ver. 2.2.8  X:\TSIU51\pong_game_projekt\pong\pong\main.asm Wed Feb 26 18:51:02 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
-X:\TSIU51\pong_game_projekt\pong\pong\main.asm(8): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
-X:\TSIU51\pong_game_projekt\pong\pong\main.asm(9): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm'
-X:\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\video_mem.asm'
-X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\display.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(9): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\video_mem.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(12): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\display.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(13): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\helpers.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
-X:\TSIU51\pong_game_projekt\pong\pong\main.asm(8): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
-X:\TSIU51\pong_game_projekt\pong\pong\main.asm(9): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm'
-X:\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\video_mem.asm'
-X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\display.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(9): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(10): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\video_mem.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(12): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\display.asm'
+X:\TSIU51\pong_game_projekt\pong\pong\main.asm(13): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\helpers.asm'
                                  
                                  ;
                                  
@@ -884,6 +886,7 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\po
                                  ; Author : maxve266
                                  ;
                                  
+                                 
                                  .INCLUDE "port_definitions.asm"
                                  
                                  #define _PORT_DEF_
@@ -896,7 +899,7 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\po
                                  	.equ MISO = PB6
                                  	.equ DDR_SPI = DDRB
                                  
-000000 940c 0087                 	jmp COLD
+000000 940c 0091                 	jmp COLD
                                  
                                  
                                  
@@ -1066,11 +1069,9 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\po
 000042 9508                      	ret
                                  
                                  SET_VM:
-000043 e109                      	ldi	r16, $19
-000044 940e 004e                 	call SET_WHITE_PIX
-000046 e209                      	ldi	r16, $29
-000047 940e 004e                 	call SET_WHITE_PIX
-000049 9508                      	ret
+000043 e60f                      	ldi	r16, $6F
+000044 940e 004b                 	call SET_WHITE_PIX // ARG( $XY)
+000046 9508                      	ret
                                  
                                  /*
                                  SET_VM:
@@ -1108,102 +1109,128 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\po
                                  
                                  #define _DISPLAY_
                                  
-00004a fdfe
-00004b f7fb
-00004c dfef
-00004d 7fbf                      POS_Y_ADRESS: .db $FE, $FD, $FB, $F7, $EF, $DF, $BF, $7F
+000047 fdfe
+000048 f7fb
+000049 dfef
+00004a 7fbf                      POS_Y_ADRESS: .db $FE, $FD, $FB, $F7, $EF, $DF, $BF, $7F
                                  
-                                 SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
-00004e 93ff                      	push	ZH
-00004f 93ef                      	push	ZL
-000050 932f                      	push	r18
-000051 934f                      	push	r20
+                                 SET_WHITE_PIX: // r16 = POS (     X     |     Y      )
+                                 
+                                 	// REVERSE r16 to POS (	  Y		|	  X		 )
+00004b 940e 0086                 	call REVERSE_REGISTER // r16
+                                 
+00004d 93ff                      	push	ZH
+00004e 93ef                      	push	ZL
+00004f 932f                      	push	r18
+000050 934f                      	push	r20
                                  	
-000052 2f40                      	mov		r20,r16
-000053 7f40                      	andi	r20,0b11110000
+000051 2f40                      	mov		r20,r16
+000052 7f40                      	andi	r20,0b11110000
                                  
-000054 940e 0075                 	call	DISPLAY_IX
+000053 940e 0074                 	call	DISPLAY_IX
                                  
                                  
                                  
                                  	//blue
-000056 8120                      	ldd		r18, Z+0
-000057 2b20                      	or		r18, r16
-000058 8320                      	std		Z+0, r18
+000055 8120                      	ldd		r18, Z+0
+000056 2b20                      	or		r18, r16
+000057 8320                      	std		Z+0, r18
                                  
                                  	//green
-000059 8121                      	ldd		r18, Z+1
-00005a 2b20                      	or		r18, r16
-00005b 8321                      	std		Z+1, r18
+000058 8121                      	ldd		r18, Z+1
+000059 2b20                      	or		r18, r16
+00005a 8321                      	std		Z+1, r18
                                  
                                  	//red
-00005c 8122                      	ldd		r18, Z+2
-00005d 2b20                      	or		r18, r16
-00005e 8322                      	std		Z+2, r18
+00005b 8122                      	ldd		r18, Z+2
+00005c 2b20                      	or		r18, r16
+00005d 8322                      	std		Z+2, r18
                                  
-00005f 93ff                      	push	ZH
-000060 93ef                      	push	ZL
+00005e 93ff                      	push	ZH
+00005f 93ef                      	push	ZL
                                  
-000061 2722                      	clr		r18
-000062 e0f0                      	ldi		ZH,HIGH(POS_Y_ADRESS*2)
-000063 e9e4                      	ldi		ZL,LOW(POS_Y_ADRESS*2)
+000060 2722                      	clr		r18
+000061 e0f0                      	ldi		ZH,HIGH(POS_Y_ADRESS*2)
+000062 e8ee                      	ldi		ZL,LOW(POS_Y_ADRESS*2)
                                  
-000064 9546                      	lsr		r20 
-000065 9546                      	lsr		r20
+000063 9546                      	lsr		r20 
+000064 9546                      	lsr		r20
+000065 9546                      	lsr		r20 
 000066 9546                      	lsr		r20 
-000067 9546                      	lsr		r20 
                                  	
                                  ANODE_LOOP: 
-000068 9125                      	lpm		r18, Z+
-000069 3040                      	cpi		r20,0
-00006a f011                      	breq	LOOP_DONE
-00006b 954a                      	dec		r20
-00006c cffb                      	rjmp	ANODE_LOOP
+000067 9125                      	lpm		r18, Z+
+000068 3040                      	cpi		r20,0
+000069 f011                      	breq	LOOP_DONE
+00006a 954a                      	dec		r20
+00006b cffb                      	rjmp	ANODE_LOOP
                                  
                                  LOOP_DONE:
                                  	
-00006d 91ef                      	pop		ZL
-00006e 91ff                      	pop		ZH
+00006c 91ef                      	pop		ZL
+00006d 91ff                      	pop		ZH
                                  	
-00006f 8323                      	std		Z+3, r18
+00006e 8323                      	std		Z+3, r18
                                  
-000070 914f                      	pop		r20
-000071 912f                      	pop		r18
-000072 91ef                      	pop		ZL
-000073 91ff                      	pop		ZH
-000074 9508                      	ret
+00006f 914f                      	pop		r20
+000070 912f                      	pop		r18
+000071 91ef                      	pop		ZL
+000072 91ff                      	pop		ZH
+000073 9508                      	ret
                                  
                                  DISPLAY_IX: // r16 = PIXEL_POS
                                  
-000075 921f                      	push r1
+000074 921f                      	push r1
                                  	
-000076 2411                      	clr		r1
-000077 e0f0                      	ldi		ZH, HIGH(VMEM)
-000078 e6e0                      	ldi		ZL, LOW(VMEM)
+000075 2411                      	clr		r1
+000076 e0f0                      	ldi		ZH, HIGH(VMEM)
+000077 e6e0                      	ldi		ZL, LOW(VMEM)
                                  
-000079 2f10                      	mov		r17, r16
-00007a 7f08                      	andi	r16, 0b11111000 
-00007b 9506                      	lsr		r16
+000078 2f10                      	mov		r17, r16
+000079 7f08                      	andi	r16, 0b11111000 
+00007a 9506                      	lsr		r16
                                  	
-00007c 0fe0                      	add		ZL, r16
-00007d 1df1                      	adc		ZH, r1
+00007b 0fe0                      	add		ZL, r16
+00007c 1df1                      	adc		ZH, r1
                                  
-00007e 7017                      	andi	r17, 0b00000111
+00007d 7017                      	andi	r17, 0b00000111
                                  
-00007f e001                      	ldi		r16, 0x01
+00007e e001                      	ldi		r16, 0x01
                                  
                                  LOOP:
-000080 3010                      	cpi		r17, 0
-000081 f019                      	breq	END_LOOP
-000082 0f00                      	lsl		r16
-000083 951a                      	dec		r17
-000084 cffb                      	rjmp	LOOP
+00007f 3010                      	cpi		r17, 0
+000080 f019                      	breq	END_LOOP
+000081 0f00                      	lsl		r16
+000082 951a                      	dec		r17
+000083 cffb                      	rjmp	LOOP
                                  
                                  END_LOOP:
-000085 901f                      	pop r1
-000086 9508                      	ret
+000084 901f                      	pop r1
+000085 9508                      	ret
                                  
                                  #endif /* _DISPLAY_ */
+                                 .INCLUDE "helpers.asm"
+                                 
+                                 #define _HELPERS_
+                                 
+                                 REVERSE_REGISTER: // REVERSERS r16
+000086 931f                      	push	r17
+000087 932f                      	push	r18
+                                 
+000088 e018                      	ldi		r17, 8
+000089 2722                      	clr		r18
+                                 
+                                 REVERSE_LOOP:
+00008a 9506                      	lsr		r16  // Shift left 
+00008b 1f00                      	rol		r16	//Rotate left, Carry goes to LSB
+00008c 951a                      	dec		r17
+00008d f7e1                      	brne	REVERSE_LOOP
+                                 	
+00008e 912f                      	pop		r18
+00008f 911f                      	pop		r17
+000090 9508                      	ret
+                                 
+                                 #endif /* _HELPERS_ */
                                   
                                   .dseg
                                  	.org SRAM_START
@@ -1215,16 +1242,16 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(11): Including file 'X:\TSIU51\po
                                   
                                  COLD:
                                  ; ***         sätt stackpekaren
-000087 e004                      	ldi    r16, HIGH(RAMEND)
-000088 bf0e                      	out    sph, r16
-000089 e50f                      	ldi    r16, LOW(RAMEND)
-00008a bf0d                      	out    spl, r16
+000091 e004                      	ldi    r16, HIGH(RAMEND)
+000092 bf0e                      	out    sph, r16
+000093 e50f                      	ldi    r16, LOW(RAMEND)
+000094 bf0d                      	out    spl, r16
                                  
                                  START:
-00008b 940e 0033                 	call	ERASE_VMEM
-00008d 940e 0043                 	call	SET_VM
-00008f 940e 0002                 	call	SPI_MASTER_INIT
-000091 940c 008b                 	jmp		START
+000095 940e 0033                 	call	ERASE_VMEM
+000097 940e 0043                 	call	SET_VM
+000099 940e 0002                 	call	SPI_MASTER_INIT
+00009b 940c 0095                 	jmp		START
                                  	//call WAIT_FOR_START:
                                  	
 
@@ -1246,7 +1273,7 @@ counted separately from r26..r31 here.
 "ATmega16A" register use summary:
 x  :   0 y  :   0 z  :  10 r0 :   0 r1 :   4 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  25 r17:  21 r18:  14 r19:   0 r20:  10 
+r13:   0 r14:   0 r15:   0 r16:  26 r17:  25 r18:  17 r19:   0 r20:  10 
 r21:   2 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:  13 r31:  13 
 Registers used: 9 out of 35 (25.7%)
@@ -1256,27 +1283,27 @@ Registers used: 9 out of 35 (25.7%)
 andi  :   3 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   2 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   4 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   9 cbi   :   1 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   4 cls   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   5 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   2 cpse  :   0 dec   :   5 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   2 cpse  :   0 dec   :   6 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   0 jmp   :   2 
 ld    :   1 ldd   :   3 ldi   :  20 lds   :   0 lpm   :   1 lsl   :   1 
-lsr   :   5 mov   :   2 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   3 ori   :   0 out   :   7 pop   :  15 
-push  :  15 rcall :   0 ret   :   9 reti  :   0 rjmp  :   4 rol   :   0 
+lsr   :   6 mov   :   2 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
+neg   :   0 nop   :   0 or    :   3 ori   :   0 out   :   7 pop   :  17 
+push  :  17 rcall :   0 ret   :  10 reti  :   0 rjmp  :   4 rol   :   1 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   1 sbic  :   0 sbis  :   2 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   1 std   :   4 sts   :   0 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 29 out of 113 (25.7%)
+Instructions used: 30 out of 113 (26.5%)
 
 "ATmega16A" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000126    278     16    294   16384   1.8%
+[.cseg] 0x000000 0x00013a    298     16    314   16384   1.9%
 [.dseg] 0x000060 0x0000a0      0     64     64    1024   6.3%
 [.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 

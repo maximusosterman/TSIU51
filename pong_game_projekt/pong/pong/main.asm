@@ -5,10 +5,12 @@
 ; Author : maxve266
 ;
 
+
 .INCLUDE "port_definitions.asm"
 .INCLUDE "DAmatrix.asm"
 .INCLUDE "video_mem.asm"
 .INCLUDE "display.asm"
+.INCLUDE "helpers.asm"
  
  .dseg
 	.org SRAM_START
