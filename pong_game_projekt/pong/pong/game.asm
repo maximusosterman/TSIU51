@@ -7,6 +7,7 @@
 	PLAYER_2: .byte 1 
 .cseg
 
+
 GAME_LOOP:
 	
 	call	ERASE_VMEM 
@@ -27,7 +28,6 @@ GET_PLAYER_2_POS:
 	
 	call	GET_STARTER_2_POS 
 	call	LISTEN_TO_LEFT_JOYSTICK
-
 	ret
 
 GET_PLAYER_1_POS:
@@ -44,7 +44,32 @@ GET_STARTER_2_POS
 	ret 
 
 
+	/*			LÄSA AV X OCH Y FRÅN JOYSTICK
+; ----------------------
+; Läsa X-position (ADC0 - PA0)
+; ----------------------
+ldi r16, 0x00          ; Välj ADC0 (PA0)
+sts ADMUX, r16         ; Lagra i ADMUX
 
+sbi ADCSRA, ADSC       ; Starta konvertering
+wait_x:
+sbis ADCSRA, ADIF      ; Vänta på att ADIF sätts
+rjmp wait_x
+in r17, ADCL           ; Läs låg byte
+in r18, ADCH           ; Läs hög byte (10-bit värde)
+
+; ----------------------
+; Läsa Y-position (ADC1 - PA1)
+; ----------------------
+ldi r16, 0x01          ; Välj ADC1 (PA1)
+sts ADMUX, r16         ; Lagra i ADMUX
+
+sbi ADCSRA, ADSC       ; Starta konvertering
+wait_y:
+sbis ADCSRA, ADIF      ; Vänta på att ADIF sätts
+rjmp wait_y
+in r19, ADCL           ; Läs låg byte
+in r20, ADCH           ; Läs hög byte (10-bit värde) */
 
 GET_STARTER_2_POS
 
