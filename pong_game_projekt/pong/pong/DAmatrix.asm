@@ -83,30 +83,6 @@ ROW_LOOP:
 	dec		r17
 	brne	ROW_LOOP
 
-
-
-
-/*	
-	//höger display 
-	ld		r16,Z+
-	call	SPI_MasterTransmit
-	ld		r16, Z+
-	call	SPI_MasterTransmit
-	ld		r16, Z+
-	call	SPI_MasterTransmit
-	ld		r16, Z+
-	call	SPI_MasterTransmit
-
-	//Vänster display
-	ld		r16, Z+	//blå 
-	call	SPI_MasterTransmit
-	ld		r16, Z+ // grön 
-	call	SPI_MasterTransmit
-	ld		r16, Z+	// röd
-	call	SPI_MasterTransmit
-	ld		r16, Z+
-	call	SPI_MasterTransmit
-*/
 	call	LATCH
 
 	dec r21 

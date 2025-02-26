@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  X:\TSIU51\pong_game_projekt\pong\pong\main.asm Wed Feb 26 19:31:47 2025
+AVRASM ver. 2.2.8  X:\TSIU51\pong_game_projekt\pong\pong\main.asm Wed Feb 26 20:22:47 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m16Adef.inc'
 X:\TSIU51\pong_game_projekt\pong\pong\main.asm(9): Including file 'X:\TSIU51\pong_game_projekt\pong\pong\port_definitions.asm'
@@ -899,7 +899,7 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(13): Including file 'X:\TSIU51\po
                                  	.equ MISO = PB6
                                  	.equ DDR_SPI = DDRB
                                  
-000000 940c 0088                 	jmp COLD
+000000 940c 009a                 	jmp COLD
                                  
                                  
                                  
@@ -991,30 +991,6 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(13): Including file 'X:\TSIU51\po
 000025 951a                      	dec		r17
 000026 f7d9                      	brne	ROW_LOOP
                                  
-                                 
-                                 
-                                 
-                                 /*	
-                                 	//höger display 
-                                 	ld		r16,Z+
-                                 	call	SPI_MasterTransmit
-                                 	ld		r16, Z+
-                                 	call	SPI_MasterTransmit
-                                 	ld		r16, Z+
-                                 	call	SPI_MasterTransmit
-                                 	ld		r16, Z+
-                                 	call	SPI_MasterTransmit
-                                 
-                                 	//Vänster display
-                                 	ld		r16, Z+	//blå 
-                                 	call	SPI_MasterTransmit
-                                 	ld		r16, Z+ // grön 
-                                 	call	SPI_MasterTransmit
-                                 	ld		r16, Z+	// röd
-                                 	call	SPI_MasterTransmit
-                                 	ld		r16, Z+
-                                 	call	SPI_MasterTransmit
-                                 */
 000027 940e 0017                 	call	LATCH
                                  
 000029 955a                      	dec r21 
@@ -1069,144 +1045,131 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(13): Including file 'X:\TSIU51\po
 000042 9508                      	ret
                                  
                                  SET_VM:
-000043 ef00                      	ldi	r16, $F0
-000044 940e 004b                 	call SET_WHITE_PIX // ARG( $XY)
-000046 9508                      	ret
+000043 ef05                      	ldi	r16, $F5
+000044 940e 005d                 	call SET_WHITE_PIX // ARG( $XY)
+000046 ef04                      	ldi	r16, $F4
+000047 940e 005d                 	call SET_WHITE_PIX // ARG( $XY)
+000049 ef03                      	ldi	r16, $F3
+00004a 940e 005d                 	call SET_WHITE_PIX // ARG( $XY)
                                  
-                                 /*
-                                 SET_VM:
-                                 	push ZL
-                                 	push ZH
-                                 	push YH
-                                 	push YL
-                                 	push r17
                                  
-                                 	ldi ZL, LOW(TEST_TABLE*2)  ; Load lower byte of TEST_TABLE address
-                                     ldi ZH, HIGH(TEST_TABLE*2)  ; Load higher byte of TEST_TABLE address
+00004c e005                      	ldi	r16, $05
+00004d 940e 005d                 	call SET_WHITE_PIX // ARG( $XY)
+00004f e004                      	ldi	r16, $04
+000050 940e 005d                 	call SET_WHITE_PIX // ARG( $XY)
+000052 e003                      	ldi	r16, $03
+000053 940e 005d                 	call SET_WHITE_PIX // ARG( $XY)
                                  
-                                     ldi YL, LOW(VMEM)        ; Load lower byte of VMEM address
-                                     ldi YH, HIGH(VMEM)        ; Load higher byte of VMEM address
                                  
-                                     ldi r16, 8               ; Set loop counter (number of bytes to copy)
+000055 e704                      	ldi	r16, $74
+000056 940e 005d                 	call SET_WHITE_PIX // ARG( $XY)
                                  
-                                 copy_loop:
-                                     lpm r17, Z+               ; Load byte from TEST_TABLE (Z points to next byte after)
-                                     st Y+, r17               ; Store byte into VMEM (Y points to next byte after)
-                                     dec r16                  ; Decrement loop counter
-                                     brne copy_loop           ; Repeat until all bytes copied
                                  
-                                 	pop r17
-                                 	pop YL
-                                 	pop YH
-                                 	pop ZH
-                                 	pop ZL
-                                 	ret
-                                 	
+000058 9508                      	ret
                                  
-                                 */
                                  #endif /*__video_MEM.asm__*/
                                  .INCLUDE "display.asm"
                                  
                                  #define _DISPLAY_
                                  
-000047 fdfe
-000048 f7fb
-000049 dfef
-00004a 7fbf                      POS_Y_ADRESS: .db $FE, $FD, $FB, $F7, $EF, $DF, $BF, $7F
+000059 fdfe
+00005a f7fb
+00005b dfef
+00005c 7fbf                      POS_Y_ADRESS: .db $FE, $FD, $FB, $F7, $EF, $DF, $BF, $7F
                                  
                                  SET_WHITE_PIX: // r16 = POS (     X     |     Y      )
                                  
                                  	// REVERSE r16 to POS (	  Y		|	  X		 )
-00004b 940e 0086                 	call REVERSE_REGISTER // r16
+00005d 940e 0098                 	call REVERSE_REGISTER // r16
                                  
-00004d 93ff                      	push	ZH
-00004e 93ef                      	push	ZL
-00004f 932f                      	push	r18
-000050 934f                      	push	r20
+00005f 93ff                      	push	ZH
+000060 93ef                      	push	ZL
+000061 932f                      	push	r18
+000062 934f                      	push	r20
                                  	
-000051 2f40                      	mov		r20,r16
-000052 7f40                      	andi	r20,0b11110000
+000063 2f40                      	mov		r20,r16
+000064 7f40                      	andi	r20,0b11110000
                                  
-000053 940e 0074                 	call	DISPLAY_IX
+000065 940e 0086                 	call	DISPLAY_IX
                                  
                                  
                                  
                                  	//blue
-000055 8120                      	ldd		r18, Z+0
-000056 2b20                      	or		r18, r16
-000057 8320                      	std		Z+0, r18
+000067 8120                      	ldd		r18, Z+0
+000068 2b20                      	or		r18, r16
+000069 8320                      	std		Z+0, r18
                                  
                                  	//green
-000058 8121                      	ldd		r18, Z+1
-000059 2b20                      	or		r18, r16
-00005a 8321                      	std		Z+1, r18
+00006a 8121                      	ldd		r18, Z+1
+00006b 2b20                      	or		r18, r16
+00006c 8321                      	std		Z+1, r18
                                  
                                  	//red
-00005b 8122                      	ldd		r18, Z+2
-00005c 2b20                      	or		r18, r16
-00005d 8322                      	std		Z+2, r18
+00006d 8122                      	ldd		r18, Z+2
+00006e 2b20                      	or		r18, r16
+00006f 8322                      	std		Z+2, r18
                                  
-00005e 93ff                      	push	ZH
-00005f 93ef                      	push	ZL
+000070 93ff                      	push	ZH
+000071 93ef                      	push	ZL
                                  
-000060 2722                      	clr		r18
-000061 e0f0                      	ldi		ZH,HIGH(POS_Y_ADRESS*2)
-000062 e8ee                      	ldi		ZL,LOW(POS_Y_ADRESS*2)
+000072 2722                      	clr		r18
+000073 e0f0                      	ldi		ZH,HIGH(POS_Y_ADRESS*2)
+000074 ebe2                      	ldi		ZL,LOW(POS_Y_ADRESS*2)
                                  
-000063 9546                      	lsr		r20 
-000064 9546                      	lsr		r20
-000065 9546                      	lsr		r20 
-000066 9546                      	lsr		r20 
+000075 9546                      	lsr		r20 
+000076 9546                      	lsr		r20
+000077 9546                      	lsr		r20 
+000078 9546                      	lsr		r20 
                                  	
                                  ANODE_LOOP: 
-000067 9125                      	lpm		r18, Z+
-000068 3040                      	cpi		r20,0
-000069 f011                      	breq	LOOP_DONE
-00006a 954a                      	dec		r20
-00006b cffb                      	rjmp	ANODE_LOOP
+000079 9125                      	lpm		r18, Z+
+00007a 3040                      	cpi		r20,0
+00007b f011                      	breq	LOOP_DONE
+00007c 954a                      	dec		r20
+00007d cffb                      	rjmp	ANODE_LOOP
                                  
                                  LOOP_DONE:
                                  	
-00006c 91ef                      	pop		ZL
-00006d 91ff                      	pop		ZH
+00007e 91ef                      	pop		ZL
+00007f 91ff                      	pop		ZH
                                  	
-00006e 8323                      	std		Z+3, r18
+000080 8323                      	std		Z+3, r18
                                  
-00006f 914f                      	pop		r20
-000070 912f                      	pop		r18
-000071 91ef                      	pop		ZL
-000072 91ff                      	pop		ZH
-000073 9508                      	ret
+000081 914f                      	pop		r20
+000082 912f                      	pop		r18
+000083 91ef                      	pop		ZL
+000084 91ff                      	pop		ZH
+000085 9508                      	ret
                                  
                                  DISPLAY_IX: // r16 = PIXEL_POS
                                  
-000074 921f                      	push r1
+000086 921f                      	push r1
                                  	
-000075 2411                      	clr		r1
-000076 e0f0                      	ldi		ZH, HIGH(VMEM)
-000077 e6e0                      	ldi		ZL, LOW(VMEM)
+000087 2411                      	clr		r1
+000088 e0f0                      	ldi		ZH, HIGH(VMEM)
+000089 e6e0                      	ldi		ZL, LOW(VMEM)
                                  
-000078 2f10                      	mov		r17, r16
-000079 7f08                      	andi	r16, 0b11111000 
-00007a 9506                      	lsr		r16
+00008a 2f10                      	mov		r17, r16
+00008b 7f08                      	andi	r16, 0b11111000 
+00008c 9506                      	lsr		r16
                                  	
-00007b 0fe0                      	add		ZL, r16
-00007c 1df1                      	adc		ZH, r1
+00008d 0fe0                      	add		ZL, r16
+00008e 1df1                      	adc		ZH, r1
                                  
-00007d 7017                      	andi	r17, 0b00000111
+00008f 7017                      	andi	r17, 0b00000111
                                  
-00007e e001                      	ldi		r16, 0x01
+000090 e001                      	ldi		r16, 0x01
                                  
                                  LOOP:
-00007f 3010                      	cpi		r17, 0
-000080 f019                      	breq	END_LOOP
-000081 0f00                      	lsl		r16
-000082 951a                      	dec		r17
-000083 cffb                      	rjmp	LOOP
+000091 3010                      	cpi		r17, 0
+000092 f019                      	breq	END_LOOP
+000093 0f00                      	lsl		r16
+000094 951a                      	dec		r17
+000095 cffb                      	rjmp	LOOP
                                  
                                  END_LOOP:
-000084 901f                      	pop r1
-000085 9508                      	ret
+000096 901f                      	pop r1
+000097 9508                      	ret
                                  
                                  #endif /* _DISPLAY_ */
                                  .INCLUDE "helpers.asm"
@@ -1214,8 +1177,8 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(13): Including file 'X:\TSIU51\po
                                  #define _HELPERS_
                                  
                                  REVERSE_REGISTER: // REVERSERS r16
-000086 9502                      	swap	r16
-000087 9508                      	ret
+000098 9502                      	swap	r16
+000099 9508                      	ret
                                  
                                  
                                  #endif /* _HELPERS_ */
@@ -1230,18 +1193,160 @@ X:\TSIU51\pong_game_projekt\pong\pong\main.asm(13): Including file 'X:\TSIU51\po
                                   
                                  COLD:
                                  ; ***         sätt stackpekaren
-000088 e004                      	ldi    r16, HIGH(RAMEND)
-000089 bf0e                      	out    sph, r16
-00008a e50f                      	ldi    r16, LOW(RAMEND)
-00008b bf0d                      	out    spl, r16
+00009a e004                      	ldi    r16, HIGH(RAMEND)
+00009b bf0e                      	out    sph, r16
+00009c e50f                      	ldi    r16, LOW(RAMEND)
+00009d bf0d                      	out    spl, r16
                                  
                                  START:
-00008c 940e 0033                 	call	ERASE_VMEM
-00008e 940e 0043                 	call	SET_VM
-000090 940e 0002                 	call	SPI_MASTER_INIT
-000092 940c 008c                 	jmp		START
-                                 	//call WAIT_FOR_START:
+00009e 940e 00a2                 	 call START_SCREEN
+0000a0 940c 009e                 	 jmp START
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 START_SCREEN:
+0000a2 940e 0033                 	call	ERASE_VMEM
+                                 
+                                 	// P-BOKSTAV
+                                 
+0000a4 ef01                      	ldi		r16, $F1
+0000a5 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+0000a7 ef02                      	ldi		r16, $F2
+0000a8 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+0000aa ef03                      	ldi		r16, $F3
+0000ab 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+0000ad ef04                      	ldi		r16, $F4
+0000ae 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+0000b0 ef05                      	ldi		r16, $F5
+0000b1 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+0000b3 ef06                      	ldi		r16, $F6
+0000b4 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+0000b6 ee01                      	ldi		r16, $E1
+0000b7 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
                                  	
+0000b9 ed01                      	ldi		r16, $D1
+0000ba 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000bc ed02                      	ldi		r16, $D2
+0000bd 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000bf ed03                      	ldi		r16, $D3
+0000c0 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000c2 ee03                      	ldi		r16, $E3
+0000c3 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+                                 	// O-BOKSTAV
+                                 
+0000c5 eb02                      	ldi		r16, $B2
+0000c6 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000c8 eb03                      	ldi		r16, $B3
+0000c9 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000cb eb04                      	ldi		r16, $B4
+0000cc 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000ce eb05                      	ldi		r16, $B5
+0000cf 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000d1 ea02                      	ldi		r16, $A2
+0000d2 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+0000d4 ea05                      	ldi		r16, $A5
+0000d5 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000d7 e902                      	ldi		r16, $92
+0000d8 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+0000da e903                      	ldi		r16, $93
+0000db 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000dd e904                      	ldi		r16, $94
+0000de 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+0000e0 e905                      	ldi		r16, $95
+0000e1 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+                                 //N-BOKSTAV
+                                 
+0000e3 e702                      	ldi		r16, $72
+0000e4 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000e6 e703                      	ldi		r16, $73
+0000e7 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000e9 e704                      	ldi		r16, $74
+0000ea 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000ec e705                      	ldi		r16, $75
+0000ed 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000ef e603                      	ldi		r16, $63
+0000f0 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000f2 e504                      	ldi		r16, $54
+0000f3 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000f5 e402                      	ldi		r16, $42
+0000f6 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000f8 e403                      	ldi		r16, $43
+0000f9 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000fb e404                      	ldi		r16, $44
+0000fc 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+0000fe e405                      	ldi		r16, $45
+0000ff 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 	
+                                 	//G_BOKSTAV
+                                 
+000101 e002                      	ldi		r16, $02
+000102 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+000104 e102                      	ldi		r16, $12
+000105 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+000107 e202                      	ldi		r16, $22
+000108 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+00010a e203                      	ldi		r16, $23
+00010b 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+00010d e204                      	ldi		r16, $24
+00010e 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+000110 e205                      	ldi		r16, $25
+000111 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+000113 e105                      	ldi		r16, $15
+000114 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+000116 e005                      	ldi		r16, $05
+000117 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+000119 e004                      	ldi		r16, $04
+00011a 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+00011c e104                      	ldi		r16, $14
+00011d 940e 005d                 	call	SET_WHITE_PIX //ARG r16=$XY
+                                 
+                                 
+                                 	//call WAIT_FOR_START:
+                                 
+00011f 940e 0002                 	call	SPI_MASTER_INIT
+                                 		
 
 
 RESOURCE USE INFORMATION
@@ -1261,7 +1366,7 @@ counted separately from r26..r31 here.
 "ATmega16A" register use summary:
 x  :   0 y  :   0 z  :  10 r0 :   0 r1 :   4 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  25 r17:  21 r18:  14 r19:   0 r20:  10 
+r13:   0 r14:   0 r15:   0 r16:  72 r17:  21 r18:  14 r19:   0 r20:  10 
 r21:   2 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:  13 r31:  13 
 Registers used: 9 out of 35 (25.7%)
@@ -1272,15 +1377,15 @@ andi  :   3 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0
 brcc  :   0 brcs  :   0 break :   0 breq  :   2 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   9 cbi   :   1 cbr   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  56 cbi   :   1 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   4 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   2 cpse  :   0 dec   :   5 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   0 jmp   :   2 
-ld    :   1 ldd   :   3 ldi   :  19 lds   :   0 lpm   :   1 lsl   :   1 
+ld    :   1 ldd   :   3 ldi   :  66 lds   :   0 lpm   :   1 lsl   :   1 
 lsr   :   5 mov   :   2 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   3 ori   :   0 out   :   7 pop   :  15 
-push  :  15 rcall :   0 ret   :  10 reti  :   0 rjmp  :   4 rol   :   0 
+push  :  15 rcall :   0 ret   :  11 reti  :   0 rjmp  :   4 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   1 sbic  :   0 sbis  :   2 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1291,7 +1396,7 @@ Instructions used: 30 out of 113 (26.5%)
 "ATmega16A" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000128    280     16    296   16384   1.8%
+[.cseg] 0x000000 0x000244    564     16    580   16384   3.5%
 [.dseg] 0x000060 0x0000a0      0     64     64    1024   6.3%
 [.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 

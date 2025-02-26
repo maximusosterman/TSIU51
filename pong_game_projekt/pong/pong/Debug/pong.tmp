@@ -51,5 +51,6 @@
   <LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>89</LINE></LOOP>
   <END_LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>96</LINE></END_LOOP>
   <START><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>30</LINE></START>
+  <START_SCREEN><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>40</LINE></START_SCREEN>
  </LABELS>
 </ASSEMBLER_INFO>

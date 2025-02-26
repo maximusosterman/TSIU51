@@ -28,39 +28,26 @@ LOOP_ERASE:
 	ret
 
 SET_VM:
-	ldi	r16, $F0
+	ldi	r16, $F5
 	call SET_WHITE_PIX // ARG( $XY)
+	ldi	r16, $F4
+	call SET_WHITE_PIX // ARG( $XY)
+	ldi	r16, $F3
+	call SET_WHITE_PIX // ARG( $XY)
+
+
+	ldi	r16, $05
+	call SET_WHITE_PIX // ARG( $XY)
+	ldi	r16, $04
+	call SET_WHITE_PIX // ARG( $XY)
+	ldi	r16, $03
+	call SET_WHITE_PIX // ARG( $XY)
+
+
+	ldi	r16, $74
+	call SET_WHITE_PIX // ARG( $XY)
+
+
 	ret
 
-/*
-SET_VM:
-	push ZL
-	push ZH
-	push YH
-	push YL
-	push r17
-
-	ldi ZL, LOW(TEST_TABLE*2)  ; Load lower byte of TEST_TABLE address
-    ldi ZH, HIGH(TEST_TABLE*2)  ; Load higher byte of TEST_TABLE address
-
-    ldi YL, LOW(VMEM)        ; Load lower byte of VMEM address
-    ldi YH, HIGH(VMEM)        ; Load higher byte of VMEM address
-
-    ldi r16, 8               ; Set loop counter (number of bytes to copy)
-
-copy_loop:
-    lpm r17, Z+               ; Load byte from TEST_TABLE (Z points to next byte after)
-    st Y+, r17               ; Store byte into VMEM (Y points to next byte after)
-    dec r16                  ; Decrement loop counter
-    brne copy_loop           ; Repeat until all bytes copied
-
-	pop r17
-	pop YL
-	pop YH
-	pop ZH
-	pop ZL
-	ret
-	
-
-*/
 #endif /*__video_MEM.asm__*/
