@@ -67,13 +67,21 @@ RENDER_TO_DAM:  //Ska läsa från VMEM
 
 	ldi		ZH,HIGH(VMEM)
 	ldi		ZL,LOW(VMEM) 
-	ldi		r17, 8 //loop counter
 
-RENDER_LOOP:
+
+	ldi		r21,8 //Loop counter all rows 
+
+FULL_DISPLAY_LOOP:
+	
+
+	ldi		r17,8 //loop counter within row
+	
+
+ROW_LOOP:
 	ld		r16,Z+
 	call	SPI_MasterTransmit
 	dec		r17
-	brne	RENDER_LOOP
+	brne	ROW_LOOP
 
 
 
@@ -100,6 +108,11 @@ RENDER_LOOP:
 	call	SPI_MasterTransmit
 */
 	call	LATCH
+
+	dec r21 
+	brne  FULL_DISPLAY_LOOP
+
+
 
 	pop		r17
 	pop		r16

@@ -1,7 +1,7 @@
 #ifndef _DISPLAY_
 #define _DISPLAY_
 
-POS_Y_ADRESS: .db $FE, $7F, $FB, $F7, $EF, $DF, $BF, $FD
+POS_Y_ADRESS: .db $FE, $FD, $FB, $F7, $EF, $DF, $BF, $7F
 
 SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
 	push	ZH
