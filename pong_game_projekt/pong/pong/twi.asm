@@ -1,6 +1,15 @@
 #ifndef _TWI_
 #define _TWI_
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; TWI_SEND(r20=address, r17=data)
+TWI_SEND: // ALWAYS SEND r20
+	call	START
+	call	TWI_81
+	mov		r20, r17
+	call	TWI_81
+	call	STOP
+	ret
+
 TWI_81:
 	ldi		r18,8 // loop counter
 LOOP:
