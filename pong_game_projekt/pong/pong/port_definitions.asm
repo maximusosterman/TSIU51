@@ -9,6 +9,9 @@
 	.equ MISO = PB6
 	.equ DDR_SPI = DDRB
 
+	.equ SCL = PC0
+	.equ SDA = PC1
+
 	jmp COLD
 
 
