@@ -1,12 +1,20 @@
 #ifndef _DISPLAY_
 #define _DISPLAY_
-.dseg
-	POS_Y_ADRESS: .db $FF, $7F, $BF, $DF, $EF, $F7, $FB, $FD, $FE 
-.cseg
+
+POS_Y_ADRESS: .db $FE, $7F, $FB, $F7, $EF, $DF, $BF, $FD
 
 SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
+	push	ZH
+	push	ZL
 	push	r18
+	push	r20
+	
+	mov		r20,r16
+	andi	r20,0b11110000
+
 	call	DISPLAY_IX
+
+
 
 	//blue
 	ldd		r18, Z+0
@@ -23,14 +31,36 @@ SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
 	or		r18, r16
 	std		Z+2, r18
 
-	//anode
-	ldd		r18, Z+3
-	or		r18, r16
-	com		r18
+	push	ZH
+	push	ZL
+
+	clr		r18
+	ldi		ZH,HIGH(POS_Y_ADRESS*2)
+	ldi		ZL,LOW(POS_Y_ADRESS*2)
+
+	lsr		r20 
+	lsr		r20
+	lsr		r20 
+	lsr		r20 
+	
+ANODE_LOOP: 
+	lpm		r18, Z+
+	cpi		r20,0
+	breq	LOOP_DONE
+	dec		r20
+	rjmp	ANODE_LOOP
+
+LOOP_DONE:
+	
+	pop		ZL
+	pop		ZH
+	
 	std		Z+3, r18
 
+	pop		r20
 	pop		r18
-
+	pop		ZL
+	pop		ZH
 	ret
 
 DISPLAY_IX: // r16 = PIXEL_POS

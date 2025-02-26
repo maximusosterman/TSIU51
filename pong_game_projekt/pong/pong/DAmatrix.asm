@@ -101,8 +101,8 @@ RENDER_LOOP:
 */
 	call	LATCH
 
-	pop	r17
-	pop	r16
+	pop		r17
+	pop		r16
 	pop		ZL
 	pop		ZH
 

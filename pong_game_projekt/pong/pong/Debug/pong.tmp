@@ -40,11 +40,13 @@
   <ERASE_VMEM><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>8</LINE></ERASE_VMEM>
   <LOOP_ERASE><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>20</LINE></LOOP_ERASE>
   <SET_VM><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>30</LINE></SET_VM>
-  <SET_WHITE_PIX><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>7</LINE></SET_WHITE_PIX>
+  <SET_WHITE_PIX><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>6</LINE></SET_WHITE_PIX>
   <POS_Y_ADRESS><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>4</LINE></POS_Y_ADRESS>
-  <DISPLAY_IX><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>36</LINE></DISPLAY_IX>
-  <LOOP><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>55</LINE></LOOP>
-  <END_LOOP><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>62</LINE></END_LOOP>
+  <DISPLAY_IX><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>66</LINE></DISPLAY_IX>
+  <ANODE_LOOP><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>46</LINE></ANODE_LOOP>
+  <LOOP_DONE><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>53</LINE></LOOP_DONE>
+  <LOOP><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>85</LINE></LOOP>
+  <END_LOOP><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>92</LINE></END_LOOP>
   <START><FILE>\\filur01.it.liu.se\students\maxri670\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>28</LINE></START>
  </LABELS>
 </ASSEMBLER_INFO>

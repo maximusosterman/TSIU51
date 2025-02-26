@@ -28,7 +28,7 @@ LOOP_ERASE:
 	ret
 
 SET_VM:
-	ldi	r16, $05
+	ldi	r16, $0F
 	call SET_WHITE_PIX
 	ret
 
