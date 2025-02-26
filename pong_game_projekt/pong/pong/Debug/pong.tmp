@@ -50,7 +50,6 @@
   <LOOP_DONE><FILE>X:\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>57</LINE></LOOP_DONE>
   <LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>89</LINE></LOOP>
   <END_LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>96</LINE></END_LOOP>
-  <REVERSE_LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\helpers.asm</FILE><LINE>11</LINE></REVERSE_LOOP>
   <START><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>30</LINE></START>
  </LABELS>
 </ASSEMBLER_INFO>
