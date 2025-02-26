@@ -11,6 +11,7 @@
 .INCLUDE "video_mem.asm"
 .INCLUDE "display.asm"
 .INCLUDE "helpers.asm"
+.INCLUDE "game.asm"
  
  .dseg
 	.org SRAM_START
@@ -28,8 +29,25 @@ COLD:
 	out    spl, r16
 
 START:
-	 call START_SCREEN
-	 jmp START
+	call	START_SCREEN
+	call	WAIT_FOR_START
+	call	GAME_LOOP
+	call	END_GAME
+	jmp START
+	
+
+
+
+
+
+	WAIT_FOR_START:
+
+	rjmp	WAIT_FOR_START
+	ret
+
+
+
+
 
 
 
@@ -177,4 +195,6 @@ START_SCREEN:
 	
 	//call WAIT_FOR_START:	
 	
+
+
 	ret

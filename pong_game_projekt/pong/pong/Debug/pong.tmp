@@ -15,6 +15,7 @@
   <FILE>X:\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE>
   <FILE>X:\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE>
   <FILE>X:\TSIU51\pong_game_projekt\pong\pong\helpers.asm</FILE>
+  <FILE>X:\TSIU51\pong_game_projekt\pong\pong\game.asm</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>X:\TSIU51\pong_game_projekt\pong\pong\Debug\pong.obj</FILE>
@@ -27,7 +28,7 @@
   <FILE>pong.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <COLD><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>23</LINE></COLD>
+  <COLD><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>24</LINE></COLD>
   <SPI_MASTER_INIT><FILE>X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>16</LINE></SPI_MASTER_INIT>
   <RENDER_TO_DAM><FILE>X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>61</LINE></RENDER_TO_DAM>
   <SPI_MasterTransmit><FILE>X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>27</LINE></SPI_MasterTransmit>
@@ -35,7 +36,7 @@
   <SPI_SlaveInit><FILE>X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>37</LINE></SPI_SlaveInit>
   <SPI_SlaveReceive><FILE>X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>46</LINE></SPI_SlaveReceive>
   <LATCH><FILE>X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>54</LINE></LATCH>
-  <VMEM><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>17</LINE></VMEM>
+  <VMEM><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>18</LINE></VMEM>
   <FULL_DISPLAY_LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>74</LINE></FULL_DISPLAY_LOOP>
   <ROW_LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\DAmatrix.asm</FILE><LINE>80</LINE></ROW_LOOP>
   <TEST_TABLE><FILE>X:\TSIU51\pong_game_projekt\pong\pong\video_mem.asm</FILE><LINE>6</LINE></TEST_TABLE>
@@ -50,7 +51,11 @@
   <LOOP_DONE><FILE>X:\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>57</LINE></LOOP_DONE>
   <LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>89</LINE></LOOP>
   <END_LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\display.asm</FILE><LINE>96</LINE></END_LOOP>
-  <START><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>30</LINE></START>
-  <START_SCREEN><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>40</LINE></START_SCREEN>
+  <GAME_LOOP><FILE>X:\TSIU51\pong_game_projekt\pong\pong\game.asm</FILE><LINE>5</LINE></GAME_LOOP>
+  <GET_PLAYER_1_POS><FILE>X:\TSIU51\pong_game_projekt\pong\pong\game.asm</FILE><LINE>18</LINE></GET_PLAYER_1_POS>
+  <GET_PLAYER_2_POS><FILE>X:\TSIU51\pong_game_projekt\pong\pong\game.asm</FILE><LINE>25</LINE></GET_PLAYER_2_POS>
+  <START><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>31</LINE></START>
+  <START_SCREEN><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>58</LINE></START_SCREEN>
+  <WAIT_FOR_START><FILE>X:\TSIU51\pong_game_projekt\pong\pong\main.asm</FILE><LINE>43</LINE></WAIT_FOR_START>
  </LABELS>
 </ASSEMBLER_INFO>
