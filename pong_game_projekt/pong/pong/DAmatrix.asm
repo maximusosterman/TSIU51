@@ -12,12 +12,6 @@
 ;       SPI
 ;::::::::::::::::
 
-.dseg
-
-
-	
-.cseg
-
 
 SPI_MASTER_INIT:
 ; Set MOSI and SCK output, all others input

@@ -1,7 +1,8 @@
 #ifndef _DISPLAY_
 #define _DISPLAY_
-
-POS_Y_ADRESS:	.db	$FF, $7F, $BF, $DF, $EF, $F7, $FB, $FD, $FE 
+.dseg
+	POS_Y_ADRESS: .db $FF, $7F, $BF, $DF, $EF, $F7, $FB, $FD, $FE 
+.cseg
 
 SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
 	push	r18
@@ -22,9 +23,10 @@ SET_WHITE_PIX: // r16 = POS (     Y     |     X      )
 	or		r18, r16
 	std		Z+2, r18
 
-	//Anode
+	//anode
 	ldd		r18, Z+3
 	or		r18, r16
+	com		r18
 	std		Z+3, r18
 
 	pop		r18
