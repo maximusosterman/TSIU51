@@ -23,7 +23,7 @@
 ; --- Memory layout in SRAM
  
 COLD:
-; ***         sätt stackpekaren
+; ***         set stack pointer
 	ldi    r16, HIGH(RAMEND)
 	out    sph, r16
 	ldi    r16, LOW(RAMEND)
