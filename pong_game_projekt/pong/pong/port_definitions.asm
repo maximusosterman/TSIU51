@@ -9,8 +9,10 @@
 	.equ	MISO = PB6
 	.equ	DDR_SPI = DDRB
 
-	.equ	SCL = PC0
-	.equ	SDA = PC1
+	.equ ADDR_JOY = $27
+
+	.equ SCL = PC0
+	.equ SDA = PC1
 
 	.equ	JOY_CHAN_RIGHT_Y = 1
 	.equ	JOY_CHAN_LEFT_Y = 3
