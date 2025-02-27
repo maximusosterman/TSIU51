@@ -13,7 +13,7 @@
 .INCLUDE "helpers.asm"
 .INCLUDE "game.asm"
 .INCLUDE "start_screen.asm"
- 
+
  .dseg
 	.org SRAM_START
 	VMEM: .byte 64
@@ -21,7 +21,7 @@
 
 ; ---------------------------------------
 ; --- Memory layout in SRAM
- 
+
 COLD:
 ; ***         set stack pointer
 	ldi    r16, HIGH(RAMEND)
