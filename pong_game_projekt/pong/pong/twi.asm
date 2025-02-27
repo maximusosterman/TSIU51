@@ -7,12 +7,12 @@ TWI_SEND: // ALWAYS SEND r20
 	call	TWI_81
 	mov		r20, r17
 	call	TWI_81
-	call	STOP
+	call	TWI_STOP
 	ret
 
 TWI_81:
 	ldi		r18,8 // loop counter
-LOOP:
+LOOP_TWI_81:
 	sbrc	r20, 7
 	call	SDH
 	sbrs	r20, 7
@@ -20,7 +20,7 @@ LOOP:
 	lsl		r20
 	dec		r18
 	cpi		r18, 0
-	brne	LOOP // end of loop
+	brne	LOOP_TWI_81 // end of loop
 
 	call	SDH	//ACK
 	ret
@@ -29,17 +29,17 @@ LOOP:
 READ_TWI:
 	ldi		r18, 8 // loop counter
 LOOP_READ:
-		cbi		DDRC, SCL
-		call	WAIT
-		lsl		r20
-		sbic	PINC, SDA
-		ori		r20, 1
-		sbi		DDRC, SCL
-		call	WAIT
-		dec		r18
-		brne	LOOP_READ // end of loop
-		call	SDH	//ACK
-		ret
+	cbi		DDRC, SCL
+	call	WAIT_TWI
+	lsl		r20
+	sbic	PINC, SDA
+	ori		r20, 1
+	sbi		DDRC, SCL
+	call	WAIT_TWI
+	dec		r18
+	brne	LOOP_READ // end of loop
+	call	SDH	//ACK
+	ret
 
 TWI_START:
 	sbi		DDRC, SDA
@@ -104,4 +104,4 @@ delay1sec_inner_loop:
 		pop		r16
 		ret
 
-#ednif /*_TWI*/
+#endif /*_TWI*/

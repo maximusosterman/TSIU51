@@ -8,8 +8,6 @@ START_SCREEN:
 	ret
 	
 	//call WAIT_FOR_START:	
-	
-	ret
 
 RENDER_START_SCREEN:
 	// P-BOKSTAV
@@ -145,7 +143,7 @@ RENDER_START_SCREEN:
 
 	//Skicka till display
 
-	call	SPI_MASTER_INIT
+//	call	RENDER_TO_DAM
 
 	ret
 
