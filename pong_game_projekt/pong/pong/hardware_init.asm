@@ -3,21 +3,18 @@
 
 
 HW_INIT:
-	call HW_INIT_JOYSTICK
-	
+	call	HW_INIT_JOYSTICK
+	call	
 	
 	ret 
 
 
 
-
-
 HW_INIT_JOYSTICK:
+	ldi		r16, (1 << ADEN) | 7
+	out		ADCSRA, r16 
 	ldi		r16, (1 << REFS0)
 	sts		ADMUX, r16 
-
-	ldi		r16, (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) ; Aktivera ADC, prescaler 64
-	sts		ADCSRA, r16        ; Lagra i ADCSRA
 	
 	ret 
 
