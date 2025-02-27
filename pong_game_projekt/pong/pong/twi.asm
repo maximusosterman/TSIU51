@@ -25,6 +25,22 @@ LOOP:
 	call	SDH	//ACK
 	ret
 
+
+READ_TWI:
+	ldi		r18, 8 // loop counter
+LOOP_READ:
+		cbi		DDRC, SCL
+		call	WAIT
+		lsl		r20
+		sbic	PINC, SDA
+		ori		r20, 1
+		sbi		DDRC, SCL
+		call	WAIT
+		dec		r18
+		brne	LOOP_READ // end of loop
+		call	SDH	//ACK
+		ret
+
 TWI_START:
 	sbi		DDRC, SDA
 	call	WAIT_TWI
