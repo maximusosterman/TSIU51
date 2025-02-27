@@ -50,7 +50,6 @@ END_GAME:
 .INCLUDE "helpers.asm"
 .INCLUDE "game.asm"
 .INCLUDE "start_screen.asm"
-<<<<<<< HEAD
 .INCLUDE "joystick.asm"
 
  .dseg

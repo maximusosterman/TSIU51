@@ -15,7 +15,7 @@ GAME_LOOP:
 	call	GET_PLAYER_1_POS
 	call	GET_PLAYER_2_POS
 	
-
+	jmp		GAME_LOOP
 	ret 
 
 GET_PLAYER_1_POS:
