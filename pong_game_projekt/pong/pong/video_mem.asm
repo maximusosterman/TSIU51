@@ -27,7 +27,7 @@ LOOP_ERASE:
 	pop		ZH
 	ret
 
-SET_VM:
+/*SET_VM:
 	ldi	r16, $F5
 	call SET_WHITE_PIX // ARG( $XY)
 	ldi	r16, $F4
@@ -48,6 +48,6 @@ SET_VM:
 	call SET_WHITE_PIX // ARG( $XY)
 
 
-	ret
+	ret */
 
 #endif /*__video_MEM.asm__*/

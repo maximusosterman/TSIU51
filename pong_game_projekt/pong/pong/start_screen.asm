@@ -3,7 +3,13 @@
 
 START_SCREEN:
 	call	ERASE_VMEM
+	call	RENDER_START_SCREEN
+	call	WAIT_FOR_BUTTON_START
+	ret
+	
+	//call WAIT_FOR_START:	
 
+RENDER_START_SCREEN:
 	// P-BOKSTAV
 
 	ldi		r16, $F1
@@ -41,9 +47,6 @@ START_SCREEN:
 	
 	// O-BOKSTAV
 
-	ldi		r16, $B2
-	call	SET_WHITE_PIX //ARG r16=$XY
-	
 	ldi		r16, $B3
 	call	SET_WHITE_PIX //ARG r16=$XY
 	
@@ -53,29 +56,29 @@ START_SCREEN:
 	ldi		r16, $B5
 	call	SET_WHITE_PIX //ARG r16=$XY
 	
-	ldi		r16, $A2
-	call	SET_WHITE_PIX //ARG r16=$XY
-
-	ldi		r16, $A5
+	ldi		r16, $B6
 	call	SET_WHITE_PIX //ARG r16=$XY
 	
-	ldi		r16, $92
+	ldi		r16, $A3
 	call	SET_WHITE_PIX //ARG r16=$XY
 
+	ldi		r16, $A6
+	call	SET_WHITE_PIX //ARG r16=$XY
+	
 	ldi		r16, $93
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $94
 	call	SET_WHITE_PIX //ARG r16=$XY
-
+	
 	ldi		r16, $95
+	call	SET_WHITE_PIX //ARG r16=$XY
+
+	ldi		r16, $96
 	call	SET_WHITE_PIX //ARG r16=$XY
 
 //N-BOKSTAV
 
-	ldi		r16, $72
-	call	SET_WHITE_PIX //ARG r16=$XY
-	
 	ldi		r16, $73
 	call	SET_WHITE_PIX //ARG r16=$XY
 	
@@ -85,13 +88,13 @@ START_SCREEN:
 	ldi		r16, $75
 	call	SET_WHITE_PIX //ARG r16=$XY
 	
-	ldi		r16, $63
+	ldi		r16, $76
 	call	SET_WHITE_PIX //ARG r16=$XY
 	
-	ldi		r16, $54
+	ldi		r16, $64
 	call	SET_WHITE_PIX //ARG r16=$XY
 	
-	ldi		r16, $42
+	ldi		r16, $55
 	call	SET_WHITE_PIX //ARG r16=$XY
 	
 	ldi		r16, $43
@@ -103,15 +106,15 @@ START_SCREEN:
 	ldi		r16, $45
 	call	SET_WHITE_PIX //ARG r16=$XY
 	
+	ldi		r16, $46
+	call	SET_WHITE_PIX //ARG r16=$XY
+	
 	//G_BOKSTAV
 
-	ldi		r16, $02
+	ldi		r16, $03
 	call	SET_WHITE_PIX //ARG r16=$XY
 
-	ldi		r16, $12
-	call	SET_WHITE_PIX //ARG r16=$XY
-
-	ldi		r16, $22
+	ldi		r16, $13
 	call	SET_WHITE_PIX //ARG r16=$XY
 
 	ldi		r16, $23
@@ -123,24 +126,34 @@ START_SCREEN:
 	ldi		r16, $25
 	call	SET_WHITE_PIX //ARG r16=$XY
 
-	ldi		r16, $15
+	ldi		r16, $26
+	call	SET_WHITE_PIX //ARG r16=$XY
+
+	ldi		r16, $16
+	call	SET_WHITE_PIX //ARG r16=$XY
+
+	ldi		r16, $06
 	call	SET_WHITE_PIX //ARG r16=$XY
 
 	ldi		r16, $05
 	call	SET_WHITE_PIX //ARG r16=$XY
 
-	ldi		r16, $04
-	call	SET_WHITE_PIX //ARG r16=$XY
-
-	ldi		r16, $14
+	ldi		r16, $15
 	call	SET_WHITE_PIX //ARG r16=$XY
 
 	//Skicka till display
 
-	call	SPI_MASTER_INIT
-	
-	//call WAIT_FOR_START:	
-	
+//	call	RENDER_TO_DAM
+
+	ret
+
+WAIT_FOR_BUTTON_START:
+	push r20
+
+	ldi		r20, ADDR_JOY*2+1
+	call	TWI_SEND
+
+	pop r20
 	ret
 
 #endif /* _START_SCREEN_* */

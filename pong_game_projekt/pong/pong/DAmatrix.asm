@@ -13,17 +13,6 @@
 ;::::::::::::::::
 
 
-SPI_MASTER_INIT:
-; Set MOSI and SCK output, all others input
-		clr		r17 
-        ldi     r17, (1<<MATRIX_LATCH)|(1<<MOSI)|(1<<SCK)
-        out     DDRB, r17
-; Enable SPI, Master, set clock rate fck/4
-        ldi     r17, (1<<SPE)|(1<<MSTR)|(1<<SPR0)
-        out     SPCR, r17
-		call	RENDER_TO_DAM
-        ret
-		
 SPI_MasterTransmit:
 	; Start transmission of data (r16)
 	out SPDR,r16
@@ -88,17 +77,12 @@ ROW_LOOP:
 	dec r21 
 	brne  FULL_DISPLAY_LOOP
 
-
-
 	pop		r17
 	pop		r16
 	pop		ZL
 	pop		ZH
 
-
-
-
-
+	reti
 
 
 #endif /* _DAMATRIX_ */
