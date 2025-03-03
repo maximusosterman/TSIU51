@@ -65,6 +65,7 @@ LOOP_DONE:
 	pop		r18
 	pop		ZL
 	pop		ZH
+	
 	ret
 
 DISPLAY_IX: // r16 = PIXEL_POS

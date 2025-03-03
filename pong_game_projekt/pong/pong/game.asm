@@ -8,72 +8,82 @@
 .cseg
 
 
+
 GAME_LOOP:
-	
+
+	call	GET_STARTER_2_POS
+	call	GET_STARTER_1_POS
+
+GAME_START:	
 	call	ERASE_VMEM 
-	
+
 	call	GET_PLAYER_1_POS
 	call	GET_PLAYER_2_POS
 	
-
+	jmp		GAME_START
 	ret 
 
 GET_PLAYER_1_POS:
 		
-	call	GET_STARTER_1_POS
 	call	LISTEN_TO_RIGHT_JOYSTICK
+	sts		PLAYER_1, r16 
+	call	UPDATE_PLAYER_1_POS
 	ret
 
 GET_PLAYER_2_POS:
 	
-	call	GET_STARTER_2_POS 
+	 
 	call	LISTEN_TO_LEFT_JOYSTICK
-	ret
+	sts		PLAYER_2, r16
+	call	UPDATE_PLAYER_2_POS
+	ret 
 
-GET_PLAYER_1_POS:
+GET_STARTER_1_POS:
 	
 	ldi		r16, $04
 	sts		PLAYER_1, r16
 	ret
 
 
-GET_STARTER_2_POS
+GET_STARTER_2_POS:
 
 	ldi		r16, $F4 
 	sts		PLAYER_2, r16 
 	ret 
 
+UPDATE_PLAYER_1_POS:    
+	clr ZH
+	ldi ZL,LOW(PLAYER_1)
+	call SETPOS
+	ret
 
-	/*			LÄSA AV X OCH Y FRÅN JOYSTICK
-; ----------------------
-; Läsa X-position (ADC0 - PA0)
-; ----------------------
-ldi r16, 0x00          ; Välj ADC0 (PA0)
-sts ADMUX, r16         ; Lagra i ADMUX
+	UPDATE_PLAYER_2_POS:
+	clr ZH
+	ldi ZL,LOW(PLAYER_2)
+	call SETPOS
+	ret
 
-sbi ADCSRA, ADSC       ; Starta konvertering
-wait_x:
-sbis ADCSRA, ADIF      ; Vänta på att ADIF sätts
-rjmp wait_x
-in r17, ADCL           ; Läs låg byte
-in r18, ADCH           ; Läs hög byte (10-bit värde)
+SETPOS:
+	ld r17,Z+  ; r17=POSX
 
-; ----------------------
-; Läsa Y-position (ADC1 - PA1)
-; ----------------------
-ldi r16, 0x01          ; Välj ADC1 (PA1)
-sts ADMUX, r16         ; Lagra i ADMUX
+	call SETBIT    ; r16=bitpattern for VMEM+POSY
+	ld r17,Z    ; r17=POSY Z to POSY
+	ldi ZL,LOW(VMEM)
+	add ZL,r17    ; *(VMEM+T/POSY) ZL=VMEM+0..4
+	ld r17,Z    ; current line in VMEM
+	or r17,r16    ; OR on place
+	st Z,r17    ; put back into VMEM
+	ret
 
-sbi ADCSRA, ADSC       ; Starta konvertering
-wait_y:
-sbis ADCSRA, ADIF      ; Vänta på att ADIF sätts
-rjmp wait_y
-in r19, ADCL           ; Läs låg byte
-in r20, ADCH           ; Läs hög byte (10-bit värde) */
+SETBIT:
+	ldi r16,$01    ; bit to shift
+	SETBIT_LOOP:
+	dec r17        
+	brmi SETBIT_END ; til done
+	lsl r16    ; shift
+	jmp SETBIT_LOOP
+	SETBIT_END:
+	ret
 
-GET_STARTER_2_POS
-
-
-	ret 
 
 #endif /* _game_ */
