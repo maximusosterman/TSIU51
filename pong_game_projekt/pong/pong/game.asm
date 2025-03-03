@@ -28,7 +28,7 @@ GET_PLAYER_2_POS:
 	
 	call	GET_STARTER_2_POS 
 	call	LISTEN_TO_LEFT_JOYSTICK
-	rett s
+	ret
 
 GET_PLAYER_1_POS:
 	
