@@ -27,8 +27,19 @@ GAME_LOOP:
 	call 	RENDER_PLAYER_2
 	call	GAME_SPEED_DELAY
 	call	INC_SCORE_PLAYER_1
-	jmp		GAME_LOOP
+	rjmp	GAME_LOOP
+	//call	CHECK_WIN
 	ret
+
+CHECK_WIN:
+	lds		r16, PLAYER_1_SCORE
+	cpi		r16, 10
+	brne	GAME_START
+	lds		r16, PLAYER_2_SCORE
+	cpi		r16, 10
+	brne	GAME_START
+	ret
+
 
 GET_PLAYER_1_POS:
 	call	LISTEN_TO_RIGHT_JOYSTICK
