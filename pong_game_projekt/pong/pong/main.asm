@@ -2,7 +2,7 @@
 ; pong.asm
 ;
 ; Created: 2025-02-18 13:36:43
-; Author : maxve266
+; Author : maxve266 & maxri670
 ;
 
 #ifndef __MAIN__
@@ -31,12 +31,14 @@
 .INCLUDE "start_screen.asm"
 .INCLUDE "joystick.asm"
 .INCLUDE "7seg.asm"
+.INCLUDE "twi.asm"
+.INCLUDE "hardware_init.asm"
 
 ; ---------------------------------------
 ; --- Memory layout in SRAM
- 
+
 COLD:
-; ***         s�tt stackpekaren
+; ***         Set stack pointer
 	ldi    r16, HIGH(RAMEND)
 	out    sph, r16
 	ldi    r16, LOW(RAMEND)
@@ -48,20 +50,10 @@ START:
 	call	START_SCREEN
 	call	GAME_START
 	call	END_GAME
-	
-	
 
 
-
-
-
-END_GAME: 
+END_GAME:
 	// DISPLAY WINNER AND VICTORY SOUND (REQUEST TO PLAY AGAIN)
 	jmp		END_GAME
 
-
-.INCLUDE "twi.asm"
-.INCLUDE "hardware_init.asm"
-
-#endif /*__MAIN__ */ 
-
+#endif /*__MAIN__ */

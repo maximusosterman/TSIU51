@@ -26,7 +26,7 @@ GAME_LOOP:
 	call	RENDER_PLAYER_1
 	call 	RENDER_PLAYER_2
 	call	GAME_SPEED_DELAY
-	ldi		r21, 1 // LOADING PLAYER !
+	ldi		r21, 1 // LOADING PLAYER 1
 	call	INC_PLAYER_SCORE //ARG PLAYER NUM 1 or 2 in r21
 	rjmp	GAME_LOOP
 	//call	CHECK_WIN
@@ -128,6 +128,11 @@ GAME_DELAY1SEC_INNER_LOOP:
 		ret
 
 INC_PLAYER_SCORE: // (r21 = 1 or 2) = Player number // Takes only one or two.
+
+// Simply just increasing the scores of the player's byte.
+// Does not take score limit into account.
+// If neither 1 or 2 is givien as parameter, player 2 will be affected.
+
     push    r19
     push    r17
     push    r20

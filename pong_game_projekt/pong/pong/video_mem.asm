@@ -1,24 +1,22 @@
 #ifndef _VIDEO_MEM_
 #define _VIDEO_MEM_
- 
-
 
 TEST_TABLE: .db $01 , $01, $01, $C7, $80, $80, $80, $C3	//starting pos
 
-ERASE_VMEM: 
+ERASE_VMEM:
 	push	ZH
 	push	ZL
-	push	r17 
+	push	r17
 	push	r16
 
 	ldi    ZH,HIGH(VMEM)
 	ldi    ZL,LOW(VMEM)
-	
+
 	ldi		r17, 64
-	clr		r16 
+	clr		r16
 
 LOOP_ERASE:
-	st		Z+, r16 
+	st		Z+, r16
 	dec		r17
 	brne	LOOP_ERASE
 	pop		r16

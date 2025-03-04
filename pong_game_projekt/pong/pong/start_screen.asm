@@ -9,10 +9,8 @@ START_SCREEN:
 	call	WAIT_FOR_BUTTON_START
 	ret
 
-	//call WAIT_FOR_START:
-
 RENDER_START_SCREEN:
-	// P-BOKSTAV
+	// LETTER P
 
 	ldi		r16, $F1
 	call	SET_WHITE_PIX //ARG r16=$XY
@@ -47,7 +45,7 @@ RENDER_START_SCREEN:
 	ldi		r16, $E3
 	call	SET_WHITE_PIX //ARG r16=$XY
 
-	// O-BOKSTAV
+	// LETTER O
 
 	ldi		r16, $B3
 	call	SET_WHITE_PIX //ARG r16=$XY
@@ -79,7 +77,7 @@ RENDER_START_SCREEN:
 	ldi		r16, $96
 	call	SET_WHITE_PIX //ARG r16=$XY
 
-//N-BOKSTAV
+// LETTER N
 
 	ldi		r16, $73
 	call	SET_WHITE_PIX //ARG r16=$XY
@@ -111,7 +109,7 @@ RENDER_START_SCREEN:
 	ldi		r16, $46
 	call	SET_WHITE_PIX //ARG r16=$XY
 
-	//G_BOKSTAV
+	//LETTER G
 
 	ldi		r16, $03
 	call	SET_WHITE_PIX //ARG r16=$XY
@@ -143,10 +141,6 @@ RENDER_START_SCREEN:
 	ldi		r16, $15
 	call	SET_WHITE_PIX //ARG r16=$XY
 
-	//Skicka till display
-
-//	call	RENDER_TO_DAM
-
 	ret
 
 
@@ -160,28 +154,6 @@ CLEAR_PLAYERS_SCORES:
 
 	pop		r19
 	ret
-
-
-RESET_7SEGS:
-    push    r19
-    push    r17
-    push    r20
-
-    ldi     r19, 0
-    call    LOAD_DIGIT // (r19=number) -> r17=7seg mönster
-
-    //Loading the socre onto segment display right
-   	ldi 	r20, ADDR_RIGHT8*2
-	call    TWI_SEND  ; (r20=address, r17=data)
-
-	//Loading the socre onto segment display left
-	ldi 	r20, ADDR_LEFT8*2
-	call    TWI_SEND  ; (r20=address, r17=data)
-
-    pop     r20
-	pop     r17
-    pop     r19
-    ret
 
 WAIT_FOR_BUTTON_START:
 	//Check if PD0 is pressed  (Bit is set), then the program can continue.

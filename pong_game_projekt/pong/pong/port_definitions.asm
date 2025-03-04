@@ -1,7 +1,6 @@
 #ifndef _PORT_DEF_
 #define _PORT_DEF_
 
-
 	.equ	GAME_SPEED = 10
 
 	.equ	MATRIX_LATCH = PB4
@@ -10,17 +9,18 @@
 	.equ	MISO = PB6
 	.equ	DDR_SPI = DDRB
 
-	.equ ADDR_JOY = $27
+	.equ    ADDR_JOY = $27
 
-	.equ SCL = PC0
-	.equ SDA = PC1
+	.equ    SCL = PC0
+	.equ    SDA = PC1
 
 	.equ	JOY_CHAN_RIGHT_Y = 1
 	.equ	JOY_CHAN_LEFT_Y = 3
 	.equ	PRESCALER = 7
 
-	.equ ADDR_LEFT8 = $24
-	.equ ADDR_RIGHT8 = $25
+	// 7seg displays
+	.equ    ADDR_LEFT8 = $24
+	.equ    ADDR_RIGHT8 = $25
 
 	jmp		COLD
 
