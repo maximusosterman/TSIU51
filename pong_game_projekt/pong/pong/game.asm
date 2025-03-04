@@ -10,44 +10,30 @@
 
 
 GAME_LOOP:
-	call	ERASE_VMEM
-	call	GET_STARTER_1_POS
+	call	GET_STARTER_1_POS 
 	call	GET_STARTER_2_POS
-	call	RENDER_PLAYER_1
-	call	RENDER_PLAYER_2
 	call	GAME_START
-	
 	ret
+
 
 GAME_START:	
-	
-	
-	call	TRASH 
-	jmp		GAME_START
+	call	ERASE_VMEM
 	call	GET_PLAYER_1_POS
 	call	GET_PLAYER_2_POS
-	
+	call	RENDER_PLAYER_1
+	call 	RENDER_PLAYER_2 
+	call	GAME_SPEED_DELAY
+	jmp		GAME_START
 	ret 
 
-
-
-TRASH:
-	jmp TRASH
-	ret
-
-GET_PLAYER_1_POS:
-		
+GET_PLAYER_1_POS:	
 	call	LISTEN_TO_RIGHT_JOYSTICK
 	sts		PLAYER_1, r16 
-	call	UPDATE_PLAYER_1_POS
 	ret
 
-GET_PLAYER_2_POS:
-	
-	 
+GET_PLAYER_2_POS: 
 	call	LISTEN_TO_LEFT_JOYSTICK
 	sts		PLAYER_2, r16
-	call	UPDATE_PLAYER_2_POS
 	ret 
 
 GET_STARTER_1_POS:
@@ -58,7 +44,6 @@ GET_STARTER_1_POS:
 
 
 GET_STARTER_2_POS:
-
 	ldi		r16, $F4 
 	sts		PLAYER_2, r16 
 	ret 
@@ -83,59 +68,48 @@ RENDER_PLAYER_1:
 RENDER_PLAYER_2:
 	push	r16
 	
-
 	lds		r16, PLAYER_2
 	call	SET_WHITE_PIX
 
-	
 	lds		r16, PLAYER_2
 	inc		r16 
 	call	SET_WHITE_PIX
-
-	
+		
 	lds		r16, PLAYER_2
 	dec		r16
 	call	SET_WHITE_PIX
-
 
 	pop		r16
 
 	ret
 
 
-UPDATE_PLAYER_1_POS:    
-	clr ZH
-	ldi ZL,LOW(PLAYER_1)
-	call SETPOS
-	ret
-
-	UPDATE_PLAYER_2_POS:
-	clr ZH
-	ldi ZL,LOW(PLAYER_2)
-	call SETPOS
-	ret
-
-SETPOS:
-	ld r17,Z+  ; r17=POSX
-
-	call SETBIT    ; r16=bitpattern for VMEM+POSY
-	ld r17,Z    ; r17=POSY Z to POSY
-	ldi ZL,LOW(VMEM)
-	add ZL,r17    ; *(VMEM+T/POSY) ZL=VMEM+0..4
-	ld r17,Z    ; current line in VMEM
-	or r17,r16    ; OR on place
-	st Z,r17    ; put back into VMEM
-	ret
-
-SETBIT:
-	ldi r16,$01    ; bit to shift
-	SETBIT_LOOP:
-	dec r17        
-	brmi SETBIT_END ; til done
-	lsl r16    ; shift
-	jmp SETBIT_LOOP
-	SETBIT_END:
-	ret
+GAME_SPEED_DELAY:
+		push	r16
+		ldi		r16,10 ; Decimal bas
+GAME_SPEED_INNER_LOOP:
+		dec		r16
+		brne	GAME_SPEED_INNER_LOOP
+		pop		r16
+GAME_DELAY_1SEC:
+		push	r16
+		push	r17
+		push	r18
+		ldi		r18, GAME_SPEED 
+		ldi		r16,10 ; Decimal bas
+GAME_DELAY_1SEC_OUTER_LOOP:
+		ldi		r17,$FF
+GAME_DELAY1SEC_INNER_LOOP:
+		dec		r17
+		brne	GAME_DELAY1SEC_INNER_LOOP
+		dec		r16
+		brne	GAME_DELAY_1SEC_OUTER_LOOP
+		dec		r18
+		brne	GAME_DELAY_1SEC_OUTER_LOOP
+		pop		r18
+		pop		r17
+		pop		r16
+		ret
 
 
 #endif /* _game_ */

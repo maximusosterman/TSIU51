@@ -3,17 +3,23 @@
 
 
 HW_INIT:
-	call	HW_INIT_JOYSTICK
+	call	JOYSTICK_INIT
 	call	SPI_MASTER_INIT
 	call	INT_INIT
 	call	HW_INIT_LEFT_BUTTON
 	ret 
+
+JOYSTICK_INIT:
+	ldi		r24,$00
+	out		DDRA, r24
+	ret
 
 INT_INIT:
 	ldi		r16, (1 << CS02)
 	out		TCCR0, r16
 	ldi		r16, (1	<< TOIE0)
 	out		TIMSK, r16
+	ret 
 
 SPI_MASTER_INIT:
 ; Set MOSI and SCK output, all others input
@@ -25,14 +31,6 @@ SPI_MASTER_INIT:
         out     SPCR, r17
         ret
 		
-HW_INIT_JOYSTICK:
-	ldi		r16, (1 << ADEN) | 7
-	out		ADCSRA, r16 
-	ldi		r16, (1 << REFS0)
-	sts		ADMUX, r16 
-	
-	ret 
-
 
 
 HW_INIT_LEFT_BUTTON:  

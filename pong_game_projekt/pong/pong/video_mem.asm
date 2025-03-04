@@ -14,7 +14,7 @@ ERASE_VMEM:
 	ldi    ZH,HIGH(VMEM)
 	ldi    ZL,LOW(VMEM)
 	
-	ldi		r17, 65
+	ldi		r17, 64
 	clr		r16 
 
 LOOP_ERASE:

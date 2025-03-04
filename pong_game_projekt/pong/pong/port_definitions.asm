@@ -2,6 +2,7 @@
 #define _PORT_DEF_
 
 
+	.equ	GAME_SPEED = 10
 
 	.equ	MATRIX_LATCH = PB4
 	.equ	MOSI = PB5
@@ -16,6 +17,7 @@
 
 	.equ	JOY_CHAN_RIGHT_Y = 1
 	.equ	JOY_CHAN_LEFT_Y = 3
+	.equ	PRESCALER = 7
 
 	jmp		COLD
 
