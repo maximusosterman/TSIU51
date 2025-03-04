@@ -115,18 +115,47 @@ GAME_DELAY1SEC_INNER_LOOP:
 		pop		r16
 		ret
 
-INC_SCORE_PLAYER_1:
+INC_PLAYER_SCORE: // (r21 = 1 or 2) = Player number // Takes only one or two.
     push    r19
     push    r17
     push    r20
 
-    lds     r19, PLAYER_1_SCORE // Loading player score into r19
+    // if player one
+    cpi     r21, 1
+    breq    LOAD_PLAYER_1_SCORE
+
+    //else  player two
+    jmp     LOAD_PLAYER_TWO_SCORE
+
+LOAD_PLAYER_1_SCORE:
+    lds     r19, PLAYER_1_SCORE // Loading player 1 score into r19
     inc     r19
-    sts     PLAYER_1_SCORE, r19 // Loading the increased r19 score into the byte
+    jmp SET_SCORE_DISPLAY
+
+LOAD_PLAYER_2_SCORE:
+    lds     r19, PLAYER_1_SCORE // Loading player 1 score into r19
+    inc     r19
+
+SET_SCORE_DISPLAY:
 
     //Loading the socre onto segment display
     call    LOAD_DIGIT // (r19=number) -> r17=7seg mönster
+
+    //if player one
+    cpi     r21, 1
+    breq    SELECT_PLAYER1_DISPLAY
+
+    // else if player two
+    jmp SELECT_PLAYER2_DISPLAY
+
+SELECT_PLAYER1_DISPLAY:
    	ldi 	r20, ADDR_RIGHT8*2
+    jmp     SEND_SCORE_DATA
+
+SELECT_PLAYER2_DISPLAY:
+   	ldi 	r20, ADDR_LEFT8*2
+
+SEND_SCORE_DATA:
 	call    TWI_SEND  ; (r20=address, r17=data)
 
 	pop     r20
