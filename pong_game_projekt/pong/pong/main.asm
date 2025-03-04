@@ -30,6 +30,7 @@
 .INCLUDE "game.asm"
 .INCLUDE "start_screen.asm"
 .INCLUDE "joystick.asm"
+.INCLUDE "7seg.asm"
 
 ; ---------------------------------------
 ; --- Memory layout in SRAM
