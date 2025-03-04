@@ -45,10 +45,9 @@ COLD:
 
 START:
 	call	START_SCREEN
-	//jmp		START
 	call	WAIT_FOR_START
-
 	call	GAME_LOOP
+	jmp		START
 	call	END_GAME
 	
 	

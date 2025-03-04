@@ -10,19 +10,30 @@
 
 
 GAME_LOOP:
-
+	call	ERASE_VMEM
 	call	GET_STARTER_1_POS
 	call	GET_STARTER_2_POS
+	call	RENDER_PLAYER_1
+	call	RENDER_PLAYER_2
+	call	GAME_START
+	
+	ret
 
 GAME_START:	
-	call	ERASE_VMEM
-
+	
+	
+	call	TRASH 
 	jmp		GAME_START
 	call	GET_PLAYER_1_POS
 	call	GET_PLAYER_2_POS
 	
-	
 	ret 
+
+
+
+TRASH:
+	jmp TRASH
+	ret
 
 GET_PLAYER_1_POS:
 		
@@ -51,6 +62,46 @@ GET_STARTER_2_POS:
 	ldi		r16, $F4 
 	sts		PLAYER_2, r16 
 	ret 
+
+RENDER_PLAYER_1:
+	push	r16
+
+	lds		r16, PLAYER_1 
+	call	SET_WHITE_PIX
+
+	lds		r16, PLAYER_1 
+	inc		r16 
+	call	SET_WHITE_PIX
+
+	lds		r16, PLAYER_1 
+	dec		r16
+	call	SET_WHITE_PIX
+  
+	pop		r16	
+	ret
+
+RENDER_PLAYER_2:
+	push	r16
+	
+
+	lds		r16, PLAYER_2
+	call	SET_WHITE_PIX
+
+	
+	lds		r16, PLAYER_2
+	inc		r16 
+	call	SET_WHITE_PIX
+
+	
+	lds		r16, PLAYER_2
+	dec		r16
+	call	SET_WHITE_PIX
+
+
+	pop		r16
+
+	ret
+
 
 UPDATE_PLAYER_1_POS:    
 	clr ZH
