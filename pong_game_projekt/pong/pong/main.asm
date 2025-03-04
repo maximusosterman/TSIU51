@@ -30,6 +30,7 @@
 .INCLUDE "game.asm"
 .INCLUDE "start_screen.asm"
 .INCLUDE "joystick.asm"
+.INCLUDE "7seg.asm"
 
 ; ---------------------------------------
 ; --- Memory layout in SRAM
@@ -45,7 +46,7 @@ COLD:
 
 START:
 	call	START_SCREEN
-	call	GAME_LOOP
+	call	GAME_START
 	jmp		START
 	call	END_GAME
 	

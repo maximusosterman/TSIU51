@@ -49,8 +49,6 @@ DONE_RIGHT_Y:
 	ret
 
 
-
-
 LISTEN_TO_LEFT_JOYSTICK:
 
 
