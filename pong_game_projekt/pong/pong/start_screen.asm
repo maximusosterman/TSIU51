@@ -5,6 +5,7 @@ START_SCREEN:
 	call	ERASE_VMEM
 	call	RENDER_START_SCREEN
 	call    RESET_7SEGS
+	call	CLEAR_PLAYERS_SCORES
 	call	WAIT_FOR_BUTTON_START
 	ret
 
@@ -147,6 +148,19 @@ RENDER_START_SCREEN:
 //	call	RENDER_TO_DAM
 
 	ret
+
+
+CLEAR_PLAYERS_SCORES:
+	push	r19
+
+	ldi		r19, 0
+
+	sts		PLAYER_1_SCORE, r19
+	sts		PLAYER_2_SCORE, r19
+
+	pop		r19
+	ret
+
 
 RESET_7SEGS:
     push    r19

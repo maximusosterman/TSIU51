@@ -26,7 +26,8 @@ GAME_LOOP:
 	call	RENDER_PLAYER_1
 	call 	RENDER_PLAYER_2
 	call	GAME_SPEED_DELAY
-	call	INC_SCORE_PLAYER_1
+	ldi		r21, 1 // LOADING PLAYER !
+	call	INC_PLAYER_SCORE //ARG PLAYER NUM 1 or 2 in r21
 	rjmp	GAME_LOOP
 	//call	CHECK_WIN
 	ret
@@ -136,7 +137,7 @@ INC_PLAYER_SCORE: // (r21 = 1 or 2) = Player number // Takes only one or two.
     breq    LOAD_PLAYER_1_SCORE
 
     //else  player two
-    jmp     LOAD_PLAYER_TWO_SCORE
+    jmp     LOAD_PLAYER_2_SCORE
 
 LOAD_PLAYER_1_SCORE:
     lds     r19, PLAYER_1_SCORE // Loading player 1 score into r19
