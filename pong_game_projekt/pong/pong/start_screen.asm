@@ -4,10 +4,11 @@
 START_SCREEN:
 	call	ERASE_VMEM
 	call	RENDER_START_SCREEN
+	call    RESET_7SEGS
 	call	WAIT_FOR_BUTTON_START
 	ret
-	
-	//call WAIT_FOR_START:	
+
+	//call WAIT_FOR_START:
 
 RENDER_START_SCREEN:
 	// P-BOKSTAV
@@ -32,45 +33,45 @@ RENDER_START_SCREEN:
 
 	ldi		r16, $E1
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $D1
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $D2
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $D3
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $E3
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	// O-BOKSTAV
 
 	ldi		r16, $B3
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $B4
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $B5
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $B6
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $A3
 	call	SET_WHITE_PIX //ARG r16=$XY
 
 	ldi		r16, $A6
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $93
 	call	SET_WHITE_PIX //ARG r16=$XY
 
 	ldi		r16, $94
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $95
 	call	SET_WHITE_PIX //ARG r16=$XY
 
@@ -81,34 +82,34 @@ RENDER_START_SCREEN:
 
 	ldi		r16, $73
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $74
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $75
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $76
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $64
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $55
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $43
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $44
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $45
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	ldi		r16, $46
 	call	SET_WHITE_PIX //ARG r16=$XY
-	
+
 	//G_BOKSTAV
 
 	ldi		r16, $03
@@ -146,6 +147,27 @@ RENDER_START_SCREEN:
 //	call	RENDER_TO_DAM
 
 	ret
+
+RESET_7SEGS:
+    push    r19
+    push    r17
+    push    r20
+
+    ldi     r19, 0
+    call    LOAD_DIGIT // (r19=number) -> r17=7seg mönster
+
+    //Loading the socre onto segment display right
+   	ldi 	r20, ADDR_RIGHT8*2
+	call    TWI_SEND  ; (r20=address, r17=data)
+
+	//Loading the socre onto segment display left
+	ldi 	r20, ADDR_LEFT8*2
+	call    TWI_SEND  ; (r20=address, r17=data)
+
+    pop     r20
+	pop     r17
+    pop     r19
+    ret
 
 WAIT_FOR_BUTTON_START:
 	//Check if PD0 is pressed  (Bit is set), then the program can continue.
