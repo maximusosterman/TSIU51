@@ -11,16 +11,17 @@
 
 GAME_LOOP:
 
-	call	GET_STARTER_2_POS
 	call	GET_STARTER_1_POS
+	call	GET_STARTER_2_POS
 
 GAME_START:	
-	call	ERASE_VMEM 
+	call	ERASE_VMEM
 
+	jmp		GAME_START
 	call	GET_PLAYER_1_POS
 	call	GET_PLAYER_2_POS
 	
-	jmp		GAME_START
+	
 	ret 
 
 GET_PLAYER_1_POS:

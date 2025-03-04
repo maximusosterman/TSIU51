@@ -32,7 +32,6 @@ DONE_RIGHT_Y:
 	pop ZL
 	pop ZH
 	ret
-	;call POP_RUTINE;
 
 
 
