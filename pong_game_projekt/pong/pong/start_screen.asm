@@ -148,12 +148,14 @@ RENDER_START_SCREEN:
 	ret
 
 WAIT_FOR_BUTTON_START:
-	push r20
+	//Check if PD0 is pressed  (Bit is set), then the program can continue.
 
-	ldi		r20, ADDR_JOY*2+1
-	call	TWI_SEND
+	sbic	PIND, 0
+	jmp		WAIT_FOR_BUTTON_START //Stuck in loop until button is presserd
 
-	pop r20
+	//Button is pressed. Program continues. Bit is reset for next time.
+	sbi		PIND, 0
+
 	ret
 
 #endif /* _START_SCREEN_* */
