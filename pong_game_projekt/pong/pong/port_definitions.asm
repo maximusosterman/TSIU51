@@ -19,6 +19,9 @@
 	.equ	JOY_CHAN_LEFT_Y = 3
 	.equ	PRESCALER = 7
 
+	.equ ADDR_LEFT8 = $24
+	.equ ADDR_RIGHT8 = $25
+
 	jmp		COLD
 
 
