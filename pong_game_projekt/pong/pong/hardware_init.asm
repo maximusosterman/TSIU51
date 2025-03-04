@@ -6,6 +6,7 @@ HW_INIT:
 	call	HW_INIT_JOYSTICK
 	call	SPI_MASTER_INIT
 	call	INT_INIT
+	call	HW_INIT_LEFT_BUTTON
 	ret 
 
 INT_INIT:
@@ -31,5 +32,21 @@ HW_INIT_JOYSTICK:
 	sts		ADMUX, r16 
 	
 	ret 
+
+
+
+HW_INIT_LEFT_BUTTON:  
+// The button "L" on DAvid is accessed through PORTD pin 0. PD0, RXD. 
+// This routine henceforth sets PORTD and inputs and is then red by checking if P0 is set or not.
+	push	r16
+	
+	clr		r16
+	out		DDRD, r16 // INPUT
+
+	ldi		r16, $F
+	out		PORTD, r16
+
+	pop		r16
+	ret
 
 #endif /*_harware_init_*/
