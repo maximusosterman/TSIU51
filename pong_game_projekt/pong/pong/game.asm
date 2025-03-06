@@ -15,11 +15,24 @@ GAME_LOOP:
 	call	PLAYERS
 	call	BALL
 	call	GAME_SPEED_DELAY
-	ldi		r21, 1 // LOADING PLAYER 1
-	call	INC_PLAYER_SCORE //ARG PLAYER NUM 1 or 2 in r21
+	//call	CHECK_BALL_OUTSIDE_COURT
 	rjmp	GAME_LOOP
 	//call	CHECK_WIN
 	ret
+CHECK_BALL_OUTSIDE_COURT:
+
+    // Get ball pos
+    lds     r16, BALL_POS
+	
+	andi	r16, $F0
+	cpi		r16, $F0
+	breq	GAME_POINT_PLAYER_1
+
+	cpi		r16, $00
+	breq	GAME_POINT_PLAYER_2
+
+	ret
+
 
 CHECK_WIN:
 	lds		r16, PLAYER_1_SCORE
@@ -57,6 +70,21 @@ GAME_DELAY1SEC_INNER_LOOP:
 		pop		r16
 		ret
 
+GAME_POINT_PLAYER_1:
+	ldi		r21, 1 // LOADING PLAYER 1
+	call	INC_PLAYER_SCORE //ARG PLAYER NUM 1 or 2 in r21
+	call	ERASE_VMEM
+	ldi		r16, $01
+	call	SET_WHITE_PIX
+	jmp		END_GAME
 
+GAME_POINT_PLAYER_2:
+	ldi		r21, 2 // LOADING PLAYER 1
+	call	INC_PLAYER_SCORE //ARG PLAYER NUM 1 or 2 in r21
+	
+	call	ERASE_VMEM
+	ldi		r16, $01
+	call	SET_WHITE_PIX
+	jmp		END_GAME
 
 #endif /* _game_ */

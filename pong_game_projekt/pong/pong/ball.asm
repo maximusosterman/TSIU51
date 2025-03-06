@@ -23,7 +23,6 @@ BALL:
 	call	MOVE_BALL_POS
 	call	RENDER_BALL
 	
-
 	pop r18
 	pop r17
 	pop r16
@@ -138,13 +137,33 @@ SET_STARTER_BALL_POS:
 CHECK_COLLISION:
     push r19
     push r16
-    push r17
     push r20
 
 
 	clr	r16
     // Get ball pos
     lds     r16, BALL_POS
+
+	// CHECKING THE NEXT POS OF THE BALL
+	swap	r16 // Getting the x cord first
+
+	/*
+
+	if ball is going right, aka dx 0, the next pos is x - 1
+	if ball is going left, aka dx is 1, the next pos is x +1
+
+	*/
+	lds		r17, BALL_dx
+
+	//if Ball_dx = 0 -> dec r16
+	sbrs	r17, 0
+	dec		r16
+
+	//if Ball_dx = 1 -> inc r16
+	sbrc	r17, 0
+	inc		r16
+
+	swap	r16
 
     //Load players pos
     lds     r19, PLAYER_1
@@ -183,7 +202,8 @@ CHECK_COLLISION:
     cp      r16, r20
     breq    COLLISION_BOTTOM_PADDLE
 
-	jmp		DONE_COLLISION
+	jmp DONE_COLLISION
+
 
 COLLISION_MIDDLE_PADDLE:
     call    SET_DX
@@ -199,9 +219,8 @@ COLLISION_BOTTOM_PADDLE:
     jmp		DONE_COLLISION
 
 DONE_COLLISION:
-
+	
 	pop r20
-    pop r17
     pop r16
     pop r19
 
