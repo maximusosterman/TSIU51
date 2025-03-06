@@ -93,12 +93,13 @@ INC_PLAYER_SCORE: // (r21 = 1 or 2) = Player number // Takes only one or two.
 LOAD_PLAYER_1_SCORE:
     lds     r19, PLAYER_1_SCORE // Loading player 1 score into r19
     inc     r19
+	sts		PLAYER_1_SCORE, r19 
     jmp SET_SCORE_DISPLAY
 
 LOAD_PLAYER_2_SCORE:
-    lds     r19, PLAYER_1_SCORE // Loading player 1 score into r19
+    lds     r19, PLAYER_2_SCORE // Loading player 1 score into r19
     inc     r19
-
+	sts		PLAYER_2_SCORE, r19 
 SET_SCORE_DISPLAY:
 
     //Loading the socre onto segment display
