@@ -34,6 +34,7 @@
 .INCLUDE "twi.asm"
 .INCLUDE "hardware_init.asm"
 .INCLUDE "player.asm"
+.INCLUDE "ball.asm"
 
 ; ---------------------------------------
 ; --- Memory layout in SRAM
