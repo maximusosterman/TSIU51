@@ -5,7 +5,7 @@
 
 	BALL_POS: .byte 1
 
-	BALL_dx: .byte 1
+	BALL_dx: .byte 1 
 	BALL_dy: .byte 1
 
 	.def BALL_POS_PARAMETER = r16 // (	X |	Y  )
@@ -20,8 +20,9 @@ BALL:
 	push r17
 	push r18
 
-	call	RENDER_BALL
 	call	MOVE_BALL_POS
+	call	RENDER_BALL
+	
 
 	pop r18
 	pop r17
@@ -46,7 +47,7 @@ MOVE_BALL_POS:
 	load BALL_POS_PARAMETER with that position and call SET_BALL_POS
 */
 
-	call CHECK_COLLSION
+	call CHECK_COLLISION
 	// Ball pos x + dx
 	lds BALL_POS_PARAMETER, BALL_POS // Load ballpos
 
@@ -57,17 +58,17 @@ MOVE_BALL_POS:
 
 	//Ball going left
 
-	swap BALL_dx_PARAMETER // Now pos is (Y | X)
-	inc BALL_dx_PARAMETER
+	swap BALL_POS_PARAMETER // Now pos is (Y | X)
+	inc BALL_POS_PARAMETER
 
 	jmp MOVE_BALL_CONTINUE
 
 BALL_GOING_RIGHT:
-    swap BALL_dx_PARAMETER // Now pos is (Y | X)
-    dec BALL_dx_PARAMETER
+    swap BALL_POS_PARAMETER // Now pos is (Y | X)
+    dec BALL_POS_PARAMETER
 
 MOVE_BALL_CONTINUE:
-    swap BALL_dx_PARAMETER // Now pos is (X | Y)
+    swap BALL_POS_PARAMETER // Now pos is (X | Y)
 
 	// ldi BALL_POS_PARAMETER, desired value
 	call	SET_BALL_POS
@@ -140,67 +141,72 @@ CHECK_COLLISION:
     push r17
     push r20
 
+
+	clr	r16
     // Get ball pos
     lds     r16, BALL_POS
-
-    mov     r17, r16 // Copy ball pos into r17. r17 used to andi and compare
 
     //Load players pos
     lds     r19, PLAYER_1
     lds     r20, PLAYER_2
 
-    andi    r17, $F0 // Get only the X bits in r17
 
     //if collsion with player 1
 
     // Checking collision with middle of paddle -> no change to dy
-    cpi     r17, r19
+    cp		r16, r19
     breq    COLLISION_MIDDLE_PADDLE
-
     // Cheecking collision with top paddle -> dy = dy - 1
     dec     r19
-    cpi     r17, r19
+    cp     r16, r19
     breq    COLLISION_TOP_PADDLE
 
     // Checking collision with bottom paddle -> dy = dy + 1
     inc     r19
     inc     r19
-    cpi     r17, r19
+    cp		r16, r19
     breq    COLLISION_BOTTOM_PADDLE
 
     //if collsion with player 2
-
     // Checking collision with middle of paddle -> no change to dy
-    cpi     r17, r20
+    cp     r16, r20
     breq    COLLISION_MIDDLE_PADDLE
 
     // Cheecking collision with top paddle -> dy = dy - 1
     dec     r20
-    cpi     r17, r20
+    cp		r16, r20
     breq    COLLISION_TOP_PADDLE
 
     // Checking collision with bottom paddle -> dy = dy + 1
     inc     r20
     inc     r20
-    cpi     r17, r20
+    cp      r16, r20
     breq    COLLISION_BOTTOM_PADDLE
 
+	jmp		DONE_COLLISION
+
+COLLISION_MIDDLE_PADDLE:
+    call    SET_DX
+    jmp		DONE_COLLISION
+
+COLLISION_TOP_PADDLE:
+    call    SET_DX
+    jmp		DONE_COLLISION
+
+
+COLLISION_BOTTOM_PADDLE:
+    call    SET_DX
+    jmp		DONE_COLLISION
+
+DONE_COLLISION:
+
+	pop r20
     pop r17
     pop r16
     pop r19
 
     ret
 
-COLLISION_MIDDLE_PADDLE:
-    call    SET_DX
-    ret
 
-COLLISION_TOP_PADDLE:
-    call    SET_DX
-    ret
-
-COLLISION_BOTTOM_PADDLE:
-    call    SET_DX
-    ret
 
 #endif //__BALL__
