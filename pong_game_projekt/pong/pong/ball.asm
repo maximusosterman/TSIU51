@@ -22,9 +22,6 @@ BALL:
 
 	call	RENDER_BALL
 	call	MOVE_BALL_POS
-	//Get position and send it to CHECK COLLISION and WRTIE_BALL_TO_VMEM as param.
-
-	//CHECK_COLLISION takes BALL_POS + 1
 
 	pop r18
 	pop r17
@@ -50,9 +47,27 @@ MOVE_BALL_POS:
 */
 
 	call CHECK_COLLSION
+	// Ball pos x + dx
+	lds BALL_POS_PARAMETER, BALL_POS // Load ballpos
 
-	//Calculate next position
+	lds BALL_dx_PARAMETER, BALL_dx // Load ball_dx
 
+	cpi BALL_dx_PARAMETER, 0
+	breq BALL_GOING_RIGHT
+
+	//Ball going left
+
+	swap BALL_dx_PARAMETER // Now pos is (Y | X)
+	inc BALL_dx_PARAMETER
+
+	jmp MOVE_BALL_CONTINUE
+
+BALL_GOING_RIGHT:
+    swap BALL_dx_PARAMETER // Now pos is (Y | X)
+    dec BALL_dx_PARAMETER
+
+MOVE_BALL_CONTINUE:
+    swap BALL_dx_PARAMETER // Now pos is (X | Y)
 
 	// ldi BALL_POS_PARAMETER, desired value
 	call	SET_BALL_POS
@@ -87,7 +102,7 @@ SET_DX_ONE:
 
 
 LOAD_DX:
-    sts		BALL_dx, BALL_dx_PARAMETER
+    sts		BALL_dx, BALL_dx_PARAMETER // stores into byte
 
     pop     r19
 	pop     BALL_dx_PARAMETER
@@ -111,8 +126,12 @@ SET_BALL_POS: // takes BALL_POS_PARAMETER (NEW_VALUE)
 	ret
 
 SET_STARTER_BALL_POS:
+    push    BALL_POS_PARAMETER
+
 	ldi		BALL_POS_PARAMETER, $73
 	call	SET_BALL_POS //arg (BALL_POS_PARAMETER)
+
+	pop    BALL_POS_PARAMETER
 	ret
 
 CHECK_COLLISION:
@@ -185,33 +204,3 @@ COLLISION_BOTTOM_PADDLE:
     ret
 
 #endif //__BALL__
-
-
-
-move:
-	cpi VALUE_1,$01
-	breq ADD_Y
-	dec XY
-	dec Y
-	jmp X_ROW
-ADD_Y:
-	inc XY
-	inc Y
-X_ROW:
-	cpi VALUE_2,$01
-	breq ADD_X
-	sub XY, "byte, X" // byte with value of $10
-	sub X
-	jmp X_ROW_DONE
-ADD_X:
-	add XY,"byte, X"
-	add X
-ret
-
-Y_COLLISION:
-	XY - X-led = r16
-	cpi r16,$07
-	brne nothing
-	inc VALUE_1
-nothing:
-	ret
