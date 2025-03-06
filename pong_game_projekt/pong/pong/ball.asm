@@ -90,11 +90,21 @@ MOVE_BALL_CONTINUE_X:
 
 DECREASE_TWO_STEPS_Y:
 
+	//CHECK IF BALL IS ON NEXT TO BOTTOM ROW
+
+	mov		r21, BALL_POS_PARAMETER // COpy ball pos to 21
+
+	andi	r21, $0F // Get only the Y cords
+
+	cpi		r21, $01 // If on the next to last row, we can't decrease two steps
+	breq	DECREASE_ONE_STEP_Y 
+
 	subi	BALL_POS_PARAMETER, 2
 	rjmp	MOVE_BALL_CONTINUE_Y
 
+	
 DECREASE_ONE_STEP_Y:
-	subi	BALL_POS_PARAMETER, 1
+	dec 	BALL_POS_PARAMETER
 	rjmp	MOVE_BALL_CONTINUE_Y
 
 INCREASE_ONE_STEP_Y:
@@ -103,6 +113,16 @@ INCREASE_ONE_STEP_Y:
 	rjmp	MOVE_BALL_CONTINUE_Y
 
 INCREASE_TWO_STEPS_Y:
+
+	//CHECK IF BALL IF NEXT TO TOP ROW
+
+	mov		r21, BALL_POS_PARAMETER // COpy ball pos to 21
+
+	andi	r21, $0F // Get only the Y cords
+
+	cpi		r21, $06 // If on the next to frist row, we can't increase two steps
+	breq	INCREASE_ONE_STEP_Y
+
 	ldi		r25, 2
 	add		BALL_POS_PARAMETER, r25
 	
