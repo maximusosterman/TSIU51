@@ -37,6 +37,8 @@ RENDER_BALL:
 	ret
 
 MOVE_BALL_POS:
+
+	push	r25
 /*
 	Will move the ball according to dx and dy
 
@@ -46,32 +48,70 @@ MOVE_BALL_POS:
 	load BALL_POS_PARAMETER with that position and call SET_BALL_POS
 */
 
-	call CHECK_COLLISION
+	call	CHECK_COLLISION
 	// Ball pos x + dx
-	lds BALL_POS_PARAMETER, BALL_POS // Load ballpos
+	lds		BALL_POS_PARAMETER, BALL_POS // Load ballpos
 
-	lds BALL_dx_PARAMETER, BALL_dx // Load ball_dx
+	lds		BALL_dx_PARAMETER, BALL_dx // Load ball_dx
 
-	cpi BALL_dx_PARAMETER, 0
-	breq BALL_GOING_RIGHT
+	cpi		BALL_dx_PARAMETER, 0
+	breq	BALL_GOING_RIGHT
 
 	//Ball going left
 
-	swap BALL_POS_PARAMETER // Now pos is (Y | X)
-	inc BALL_POS_PARAMETER
+	swap	BALL_POS_PARAMETER // Now pos is (Y | X)
+	inc		BALL_POS_PARAMETER
 
-	jmp MOVE_BALL_CONTINUE
+	jmp		MOVE_BALL_CONTINUE_X
 
 BALL_GOING_RIGHT:
-    swap BALL_POS_PARAMETER // Now pos is (Y | X)
-    dec BALL_POS_PARAMETER
+    swap	BALL_POS_PARAMETER // Now pos is (Y | X)
+    dec		BALL_POS_PARAMETER
 
-MOVE_BALL_CONTINUE:
-    swap BALL_POS_PARAMETER // Now pos is (X | Y)
+MOVE_BALL_CONTINUE_X:
+    swap	BALL_POS_PARAMETER // Now pos is (X | Y)
 
+	//Setting DY
+	lds		BALL_dy_PARAMETER, BALL_dy // Load ball_dy
+
+	cpi		BALL_dy_PARAMETER, 0
+	breq	DECREASE_TWO_STEPS_Y  
+
+	cpi		BALL_dy_PARAMETER, 1
+	breq	DECREASE_ONE_STEP_Y
+
+	cpi		BALL_dy_PARAMETER, 3
+	breq	INCREASE_ONE_STEP_Y  
+
+	cpi		BALL_dy_PARAMETER, 4
+	breq	INCREASE_TWO_STEPS_Y
+
+	rjmp	MOVE_BALL_CONTINUE_Y
+
+DECREASE_TWO_STEPS_Y:
+
+	subi	BALL_POS_PARAMETER, 2
+	rjmp	MOVE_BALL_CONTINUE_Y
+
+DECREASE_ONE_STEP_Y:
+	subi	BALL_POS_PARAMETER, 1
+	rjmp	MOVE_BALL_CONTINUE_Y
+
+INCREASE_ONE_STEP_Y:
+	ldi		r25, 1
+	add		BALL_POS_PARAMETER, r25
+	rjmp	MOVE_BALL_CONTINUE_Y
+
+INCREASE_TWO_STEPS_Y:
+	ldi		r25, 2
+	add		BALL_POS_PARAMETER, r25
+	
+
+MOVE_BALL_CONTINUE_Y:
 	// ldi BALL_POS_PARAMETER, desired value
 	call	SET_BALL_POS
 
+	pop		r25
 	ret
 
 SET_DX:
@@ -127,11 +167,18 @@ SET_BALL_POS: // takes BALL_POS_PARAMETER (NEW_VALUE)
 
 SET_STARTER_BALL_POS:
     push    BALL_POS_PARAMETER
+	push	BALL_dy_PARAMETER
+
+	call	SET_DX
+
+	ldi		BALL_dy_PARAMETER, 2
+	call	SET_DY
 
 	ldi		BALL_POS_PARAMETER, $73
 	call	SET_BALL_POS //arg (BALL_POS_PARAMETER)
 
-	pop    BALL_POS_PARAMETER
+	pop		BALL_dy_PARAMETER
+	pop     BALL_POS_PARAMETER
 	ret
 
 CHECK_COLLISION:
@@ -164,6 +211,84 @@ CHECK_COLLISION:
 	inc		r16
 
 	swap	r16
+
+	/*
+
+	if ball is going up, aka dy 4, the next pos is y - 2
+	if ball is going down, aka dy is 0, the next pos is y + 2
+	if ball is going up, aka dy 3, the next pos is y - 1
+	if ball is going down, aka dy is 1, the next pos is y + 1
+	*/
+/*
+	lds		r17, BALL_dy
+
+	//if Ball_dy = 0 -> dec r16 * 2
+	cpi		r17, 0
+	breq	DY_IS_ZERO // 
+
+	cpi		r17, 1
+	breq	DY_IS_ONE
+
+	cpi		r17, 3
+	breq	DY_IS_THREE
+
+	cpi		r17, 4
+	breq	DY_IS_FOUR
+
+	jmp COLLISION_COURT
+
+DY_IS_ZERO:
+	inc	r16
+	inc	r16
+	jmp COLLISION_COURT
+
+DY_IS_ONE:
+	inc	r16
+	jmp COLLISION_COURT
+
+DY_IS_THREE:
+	dec r16
+	jmp COLLISION_COURT
+
+DY_IS_FOUR:
+	dec r16
+	jmp COLLISION_COURT
+
+*/
+COLLISION_COURT:
+	lds		r17, BALL_POS
+	andi	r17, $0F
+	cpi		r17, $00
+	breq	TOP_COLLISION
+	cpi		r17, $07
+	breq	BOTTOM_COLLISION
+	jmp		CONTINUE_COLLISION
+
+TOP_COLLISION:
+	lds		BALL_dy_PARAMETER, BALL_dy
+	sbrc	BALL_dy_PARAMETER, 0
+	ldi		BALL_dy_PARAMETER, 3
+
+	sbrs	BALL_dy_PARAMETER, 0
+	ldi		BALL_dy_PARAMETER, 4
+	
+	call	SET_DY
+	jmp		CONTINUE_COLLISION
+	//checking if collision with top or bottom court
+
+
+BOTTOM_COLLISION:
+	lds		BALL_dy_PARAMETER, BALL_dy
+	sbrc	BALL_dy_PARAMETER, 3
+	ldi		BALL_dy_PARAMETER, 0
+
+	sbrs	BALL_dy_PARAMETER, 3
+	ldi		BALL_dy_PARAMETER, 1
+	
+	call	SET_DY
+	jmp		CONTINUE_COLLISION
+
+CONTINUE_COLLISION:
 
     //Load players pos
     lds     r19, PLAYER_1
@@ -202,7 +327,8 @@ CHECK_COLLISION:
     cp      r16, r20
     breq    COLLISION_BOTTOM_PADDLE
 
-	jmp DONE_COLLISION
+	jmp		DONE_COLLISION
+
 
 
 COLLISION_MIDDLE_PADDLE:
@@ -211,12 +337,27 @@ COLLISION_MIDDLE_PADDLE:
 
 COLLISION_TOP_PADDLE:
     call    SET_DX
+
+	//Changing the DY_VALUE
+	lds		BALL_dy_PARAMETER, BALL_dy // Load DY_VALUE
+	dec		BAll_dy_PARAMETER
+	call	SET_DY
+
     jmp		DONE_COLLISION
 
 
 COLLISION_BOTTOM_PADDLE:
     call    SET_DX
+
+		//Changing the DY_VALUE
+	lds		BALL_dy_PARAMETER, BALL_dy // Load DY_VALUE
+	inc		BAll_dy_PARAMETER
+	call	SET_DY
+
     jmp		DONE_COLLISION
+
+
+
 
 DONE_COLLISION:
 	
