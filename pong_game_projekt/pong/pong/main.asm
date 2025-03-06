@@ -33,6 +33,7 @@
 .INCLUDE "7seg.asm"
 .INCLUDE "twi.asm"
 .INCLUDE "hardware_init.asm"
+.INCLUDE "player.asm"
 
 ; ---------------------------------------
 ; --- Memory layout in SRAM
