@@ -2,7 +2,9 @@
 #define __SPEAKER__
 
 BEEP:
-	sbi PORTB, 1
+	ldi		r16, $ff
+	out		DDRB, r16 
+	sbi		PORTB, 1
 	ldi r18, T/2
 	call DELAY
 	cbi PORTB, 1
@@ -15,7 +17,7 @@ BEEP:
 LONG_BEEP:
 	ldi r20, N*3
 	call BEEP
-	rjmp CONTINUE
+	ret
 
 SHORT_BEEP:
 	ldi r20, N
@@ -33,4 +35,23 @@ NO_BEEP:
 	brne NO_BEEP
 	ret
 
-#endif __SPEAKER__
+
+DELAY:
+	sbi PORTB,7
+	push r16
+	push r17
+	ldi r16,10 ; Decimal bas
+delayYttreLoop:
+	ldi r17,$1F
+delayInreLoop:
+	dec r17
+	brne delayInreLoop
+	dec r16
+	brne delayYttreLoop
+	cbi PORTB,7
+	pop r17
+	pop r16
+	ret
+
+#endif //__SPEAKER__
+
