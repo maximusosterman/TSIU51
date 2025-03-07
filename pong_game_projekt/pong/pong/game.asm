@@ -2,13 +2,28 @@
 #ifndef _GAME_
 #define _GAME_
 
+.dseg
+
+	GAME_SPEED: .byte 1
+
+.cseg
+
 GAME_START:
+	call	SET_START_GAME_SPEED
 	call	GET_STARTER_1_POS
 	call	GET_STARTER_2_POS
 	call	SET_STARTER_BALL_POS
 	call	GAME_LOOP
 	ret
 
+SET_START_GAME_SPEED:
+	push	r16
+	
+	ldi		r16, GAME_START_SPEED
+	sts		GAME_SPEED, r16
+
+	pop		r16
+	ret
 
 GAME_LOOP:
 	call	ERASE_VMEM
@@ -43,6 +58,24 @@ CHECK_WIN:
 	breq	WIN
 	ret
 
+INCREASE_GAME_SPEED:
+	push	r16
+
+	lds		r16, GAME_SPEED
+
+	//SET LIMIT TO GAME SPEED
+
+	cpi		r16, 3
+	breq	NO_INCREASE
+
+	dec		r16
+
+NO_INCREASE:
+	sts		GAME_SPEED, r16
+
+	pop		r16
+	ret 
+
 WIN:
 	call	ERASE_VMEM
 	jmp		START
@@ -58,7 +91,8 @@ GAME_DELAY_1SEC:
 		push	r16
 		push	r17
 		push	r18
-		ldi		r18, GAME_SPEED
+
+		lds		r18, GAME_SPEED
 		ldi		r16,10 ; Decimal bas
 GAME_DELAY_1SEC_OUTER_LOOP:
 		ldi		r17,$FF
