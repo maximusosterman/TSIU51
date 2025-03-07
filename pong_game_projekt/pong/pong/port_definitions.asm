@@ -1,7 +1,7 @@
 #ifndef _PORT_DEF_
 #define _PORT_DEF_
 
-	.equ	GAME_SPEED = 10
+	.equ	GAME_START_SPEED = 8
 
 	.equ	MATRIX_LATCH = PB4
 	.equ	MOSI = PB5
