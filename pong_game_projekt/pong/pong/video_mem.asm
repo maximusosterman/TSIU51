@@ -28,6 +28,8 @@ LOOP_ERASE:
 
 LAST_BYTES:
 	// Shall load 8 last bytes to make the last row less intense
+	push	r17
+	push	r16
 	ldi		r16,2
 
 LAST_BYTES_LOOP:
@@ -41,6 +43,9 @@ LAST_BYTES_LOOP:
 	st		Z+, r17
 	dec		r16 
 	brne	LAST_BYTES_LOOP
+	
+	pop		r16
+	pop		r17
 	ret
 
 #endif /*__video_MEM.asm__*/
