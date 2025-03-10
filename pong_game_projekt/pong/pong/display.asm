@@ -38,7 +38,7 @@ SET_WHITE_PIX: // r16 = POS (     X     |     Y      )
 	push	ZH
 	push	ZL
 
-	clr		r18
+	clr		 r18
 	ldi		ZH,HIGH(POS_Y_ADRESS*2)
 	ldi		ZL,LOW(POS_Y_ADRESS*2)
 

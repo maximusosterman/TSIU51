@@ -58,7 +58,7 @@ RENDER_TO_DAM:  //Ska läsa från VMEM
 	ldi		ZL,LOW(VMEM) 
 
 
-	ldi		r21,8 //Loop counter all rows 
+	ldi		r21,9 //Loop counter all rows 
 
 FULL_DISPLAY_LOOP:
 	
