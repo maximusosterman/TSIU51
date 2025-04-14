@@ -35,6 +35,7 @@
 .INCLUDE "hardware_init.asm"
 .INCLUDE "player.asm"
 .INCLUDE "ball.asm"
+.INCLUDE "speaker.asm"
 
 ; ---------------------------------------
 ; --- Memory layout in SRAM
