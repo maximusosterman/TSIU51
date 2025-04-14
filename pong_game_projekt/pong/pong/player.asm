@@ -103,7 +103,7 @@ LOAD_PLAYER_2_SCORE:
 SET_SCORE_DISPLAY:
 
     //Loading the socre onto segment display
-    call    LOAD_DIGIT // (r19=number) -> r17=7seg mönster
+    call    LOAD_DIGIT // (r19=number) -> r17=7seg segment
 
     //if player one
     cpi     r21, 1

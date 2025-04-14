@@ -22,6 +22,9 @@
 	.equ    ADDR_LEFT8 = $24
 	.equ    ADDR_RIGHT8 = $25
 
+	.equ    T = 40 // For period in BEEP
+	.equ	N = 80
+
 	jmp		COLD
 
 
