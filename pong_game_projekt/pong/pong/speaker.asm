@@ -2,16 +2,16 @@
 #define __SPEAKER__
 
 BEEP:
-	ldi		r16, $ff
-	out		DDRB, r16 
-	sbi		PORTB, 1
+	ldi		r16, $ff	// Alla PORTB-pinnar som output
+	out		DDRB, r16 	
+	sbi		PORTB, 1	// Sätt pinne 1 till HÖG (högtalare på)
 	ldi r18, T/2
-	call DELAY
-	cbi PORTB, 1
-	ldi r18, T/2
-	call DELAY
-	dec r20
-	brne BEEP
+	call DELAY			// Vänta
+	cbi PORTB, 1			// Sätt pinne 1 till LÅG (högtalare av)
+	ldi r18, T/2			
+	call DELAY			// Vänta
+	dec r20				// Räkna ner antal pip			
+	brne BEEP			// Om inte klar, kör igen
 	ret
 
 LONG_BEEP:
