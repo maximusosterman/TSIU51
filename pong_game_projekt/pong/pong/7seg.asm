@@ -10,7 +10,7 @@ LOAD_DIGIT:
 	ldi		ZL, LOW(DIGIT_LOOKUP*2)
 
 	add		ZL, r19
-	lpm		r17, Z
+	lpm		r17, Z+
 
 	pop		ZL
 	pop		ZH

@@ -15,7 +15,7 @@
 
  .dseg
 	.org SRAM_START
-	VMEM: .byte 64
+	VMEM: .byte 72
 .cseg
 
 ; ---------------------------------------
@@ -35,6 +35,7 @@
 .INCLUDE "hardware_init.asm"
 .INCLUDE "player.asm"
 .INCLUDE "ball.asm"
+.INCLUDE "speaker.asm"
 
 ; ---------------------------------------
 ; --- Memory layout in SRAM
@@ -51,11 +52,6 @@ COLD:
 START:
 	call	START_SCREEN
 	call	GAME_START
-	call	END_GAME
 
-
-END_GAME:
-	// DISPLAY WINNER AND VICTORY SOUND (REQUEST TO PLAY AGAIN)
-	jmp		END_GAME
 
 #endif /*__MAIN__ */

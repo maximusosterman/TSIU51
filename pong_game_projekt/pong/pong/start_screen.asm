@@ -161,7 +161,7 @@ WAIT_FOR_BUTTON_START:
 	//Check if PD0 is pressed  (Bit is set), then the program can continue.
 
 	sbic	PIND, 0
-	jmp		WAIT_FOR_BUTTON_START //Stuck in loop until button is presserd
+	jmp	WAIT_FOR_BUTTON_START //Stuck in loop until button is presserd
 
 	//Button is pressed. Program continues. Bit is reset for next time.
 	sbi		PIND, 0
